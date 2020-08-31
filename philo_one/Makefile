@@ -47,6 +47,7 @@ endif
 
 SRCS += main.c
 SRCS += utils.c
+SRCS += cycle.c
 
 #libft functions
 SRCS += ft_strlen.c
