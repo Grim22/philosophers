@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 17:44:15 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 18:11:07 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock)
 	}
 	free(forks);
 	pthread_mutex_destroy(&lock);
+}
+
+void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t lock)
+{
+	int i;
+
+    pthread_mutex_init(&lock, NULL); // init de lock_out (variable globale)
+	i = 0;
+	while (i < num)
+	{
+		pthread_mutex_init(&fork[i], NULL);
+		i++;
+	}
 }
 
 void	free_options(int num, t_options **options)

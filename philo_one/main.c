@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 18:02:35 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 18:12:47 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,17 +175,11 @@ int     main(int argc, char **argv)
 	if (check_args(argc) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	pthread_mutex_init(&lock_out, NULL); // init de lock_out (variable globale)
 
 	num_philo = ft_atoi(argv[1]);
 	
 	fork = malloc(num_philo * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
-	i = 0;
-	while (i < num_philo)
-	{
-		pthread_mutex_init(&fork[i], NULL);
-		i++;
-	}
+	init_mutexes(num_philo, fork, lock_out);
 	
 	thread = malloc(num_philo * sizeof(pthread_t)); // Chaque thread[i] est un pthread_t
 
