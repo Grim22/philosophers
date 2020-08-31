@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 11:00:19 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 17:47:23 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@
 #include <stdlib.h> //malloc
 #include <string.h> // memset
 #include "stdio.h" // printf
-
-
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-void	ft_putendl_fd(char *s, int fd);
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_itoa(long int nlong);
 
 typedef struct  s_options
 {
@@ -45,3 +38,18 @@ enum	e_state
 };
 
 pthread_mutex_t lock_out;
+
+
+void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
+void	free_options(int num, t_options **options);
+void	join_threads(int num, pthread_t *threads);
+
+/*
+** ---------------------- Libft prototypes ---------------------
+*/
+
+size_t	ft_strlen(const char *s);
+int		ft_atoi(const char *str);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char *s, int fd);
+char	*ft_itoa(long int nlong);

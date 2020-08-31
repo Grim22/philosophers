@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 17:12:24 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 18:02:35 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,13 @@ int     main(int argc, char **argv)
 	num_philo = ft_atoi(argv[1]);
 	
 	fork = malloc(num_philo * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
+	i = 0;
+	while (i < num_philo)
+	{
+		pthread_mutex_init(&fork[i], NULL);
+		i++;
+	}
+	
 	thread = malloc(num_philo * sizeof(pthread_t)); // Chaque thread[i] est un pthread_t
 
 	fill_options(&options, num_philo, argc, argv, fork);
@@ -190,21 +197,7 @@ int     main(int argc, char **argv)
 		pthread_create(&thread[i], NULL, &cycle, (void*)options[i]);
 		i++;
 	}
-	i = 0;
-	while (i < num_philo)
-	{
-		pthread_join(thread[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < num_philo)
-	{
-		pthread_mutex_destroy(&fork[i]);
-		free(options[i]);
-		i++;
-	}
-	free(options);
-	free(fork);
-	free(thread);
-	pthread_mutex_destroy(&lock_out);
+	join_threads(num_philo, thread);
+	free_options(num_philo, options);
+	destroy_mutexes(num_philo, fork, lock_out);
 }
