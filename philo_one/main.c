@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 10:59:00 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 12:31:47 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,30 @@ void	*cycle(void *void_options)
 	options = (t_options*)void_options;
 	
 	// EAT
-	if (pthread_mutex_lock(options->fork_l))
-		printf("error lock\n");
-	if (pthread_mutex_lock(options->fork_r))
-		printf("error lock\n");
+	if (options->identifier == 1) // pour eviter que tous les philo se jettent en premier sur leur fourchette droite, ce qui cause un deadlock: chaque philo a une fourchette dans la main, qu'il ne libère jamais 
+	{
+		if (pthread_mutex_lock(options->fork_l))
+			printf("error lock\n");
+	}
+	else
+	{
+		if (pthread_mutex_lock(options->fork_r))
+			printf("error lock\n");
+	}
+	ft_print_status(FORK, options->identifier);
+	
+	if (options->identifier == 1)
+	{
+		if (pthread_mutex_lock(options->fork_r))
+			printf("error lock\n");
+	}
+	else
+	{
+		if (pthread_mutex_lock(options->fork_l))
+			printf("error lock\n");
+	}
+	ft_print_status(FORK, options->identifier);
+	
 	ft_print_status(EAT, options->identifier);
 	usleep(options->t_to_eat * 1000);	
 	if (pthread_mutex_unlock(options->fork_l))
@@ -105,8 +125,8 @@ void	fill_options(t_options ***options, int num_philo, int argc, char **argv, pt
 	options[0][i]->fork_l = &fork[i];
 	if (num_philo > 1)
 		options[0][i]->fork_r = &fork[i + 1];
-	// else
-	// 	options[0][i]->fork_r = NULL;
+	else
+		options[0][i]->fork_r = &fork[i]; // c'est la meme fourchette a gauche et a droite
 	
 	i++;
 	while (i < num_philo - 1)

@@ -1,0 +1,3 @@
+faire un check que chaque argument soit bien un entier positif
+
+arg num_philo, cas particuliers si egal à 0 ou 1
