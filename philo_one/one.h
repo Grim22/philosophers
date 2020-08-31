@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/17 19:06:39 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 11:00:19 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct  s_options
     int t_to_eat;
     int t_to_sleep;
     int num_of_time;
+    pthread_mutex_t *fork_l; // fourchette gauche: pointeur sur une des fourchettes
+    pthread_mutex_t *fork_r; // fourchette à droite: pointeur sur une des fourchettes
 }               t_options;
 
 enum	e_state
@@ -42,4 +44,4 @@ enum	e_state
 	DIE
 };
 
-pthread_mutex_t *lock_out;
+pthread_mutex_t lock_out;

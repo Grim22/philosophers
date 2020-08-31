@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/17 19:08:34 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 10:59:00 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,18 @@ void	ft_print_status(int status, int id)
 	char *timestamp;
 	char *identifier;
 	
-	pthread_mutex_lock(lock_out);
+	pthread_mutex_lock(&lock_out); // partie locked pour que les threads n'affichent pas les statuts en meme temps
+	
 	gettimeofday(&current_t, NULL);
-	timestamp = ft_itoa((long)(current_t.tv_usec / 1000));
+	timestamp = ft_itoa((long)(current_t.tv_sec * 1000 + current_t.tv_usec / 1000));
 	ft_putstr_fd(timestamp, 1);
 	free(timestamp);
+	
 	ft_putstr_fd(" ", 1);
 	identifier = ft_itoa((long)id);
 	ft_putstr_fd(identifier, 1);
 	free(identifier);
+	
 	if (status == EAT)
 		ft_putendl_fd(" is eating", 1);
 	if (status == SLEEP)
@@ -57,7 +60,8 @@ void	ft_print_status(int status, int id)
 		ft_putendl_fd(" has taken a fork", 1);
 	if (status == DIE)
 		ft_putendl_fd(" died", 1);
-	pthread_mutex_unlock(lock_out);
+	
+	pthread_mutex_unlock(&lock_out);
 }
 
 void	*cycle(void *void_options)
@@ -65,46 +69,85 @@ void	*cycle(void *void_options)
 	t_options	*options;
 	
 	options = (t_options*)void_options;
+	
+	// EAT
+	if (pthread_mutex_lock(options->fork_l))
+		printf("error lock\n");
+	if (pthread_mutex_lock(options->fork_r))
+		printf("error lock\n");
 	ft_print_status(EAT, options->identifier);
 	usleep(options->t_to_eat * 1000);	
+	if (pthread_mutex_unlock(options->fork_l))
+		printf("error unlock\n");
+	if (pthread_mutex_unlock(options->fork_r))
+		printf("error unlock\n");
+	
+	// SLEEP
 	ft_print_status(SLEEP, options->identifier);
 	usleep(options->t_to_sleep * 1000);	
+	
+	//THINK
 	ft_print_status(THINK, options->identifier);
 	return (NULL);
 }
 
-void	fill_options(t_options ***options, int num_philo, int argc, char **argv)
+void	fill_options(t_options ***options, int num_philo, int argc, char **argv, pthread_mutex_t *fork)
 {
 	int i;
 	
-	*options = malloc(num_philo * sizeof(t_options*));
+	*options = malloc(num_philo * sizeof(t_options*)); // malloc du tableau de t_option*
+	
 	i = 0;
-	while (i < num_philo)
+ 	// malloc du premier t_option*
+	options[0][i] = malloc(sizeof(t_options));
+	// fill du premier t_option
+	fill_args(options[0][i], argc, argv, i); 
+	options[0][i]->fork_l = &fork[i];
+	if (num_philo > 1)
+		options[0][i]->fork_r = &fork[i + 1];
+	// else
+	// 	options[0][i]->fork_r = NULL;
+	
+	i++;
+	while (i < num_philo - 1)
 	{
 		options[0][i] = malloc(sizeof(t_options));
 		fill_args(options[0][i], argc, argv, i);
+		options[0][i]->fork_l = &fork[i];
+		options[0][i]->fork_r = &fork[i + 1];
 		i++;
+	}
+	
+	// malloc et fill du dernier t_option
+	if (num_philo > 1)
+	{
+		options[0][i] = malloc(sizeof(t_options));
+		fill_args(options[0][i], argc, argv, i);
+		options[0][i]->fork_l = &fork[i];
+		options[0][i]->fork_r = &fork[0];
 	}
 }
 
 int     main(int argc, char **argv)
 {
-	pthread_t	*thread;
-	t_options	**options;
+	pthread_t	*thread; // tableau de pthreads
+	pthread_mutex_t	*fork; // tableau de phtread_mutexs
+	t_options	**options; // tableau de t_options*
 	int i;
 	int num_philo;
 	
 	if (check_args(argc) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	lock_out = malloc(sizeof(*lock_out));
-	pthread_mutex_init(lock_out, NULL);
+	pthread_mutex_init(&lock_out, NULL); // init de lock_out (variable globale)
 
 	num_philo = ft_atoi(argv[1]);
-	fill_options(&options, num_philo, argc, argv);
 	
-	thread = malloc(num_philo * sizeof(*thread));
+	fork = malloc(num_philo * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
+	thread = malloc(num_philo * sizeof(pthread_t)); // Chaque thread[i] est un pthread_t
 
+	fill_options(&options, num_philo, argc, argv, fork);
+	
 	i = 0;
 	while (i < num_philo)
 	{
@@ -117,5 +160,5 @@ int     main(int argc, char **argv)
 		pthread_join(thread[i], NULL);
 		i++;
 	}
-	pthread_mutex_destroy(lock_out);
+	pthread_mutex_destroy(&lock_out);
 }
