@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 12:31:47 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/31 17:12:24 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_print_status(int status, int id)
 	
 	gettimeofday(&current_t, NULL);
 	timestamp = ft_itoa((long)(current_t.tv_sec * 1000 + current_t.tv_usec / 1000));
+	// timestamp = ft_itoa((long)(current_t.tv_usec / 1000));
 	ft_putstr_fd(timestamp, 1);
 	free(timestamp);
 	
@@ -51,7 +52,7 @@ void	ft_print_status(int status, int id)
 	free(identifier);
 	
 	if (status == EAT)
-		ft_putendl_fd(" is eating", 1);
+		ft_putendl_fd(" is EATING !", 1);
 	if (status == SLEEP)
 		ft_putendl_fd(" is sleeping", 1);
 	if (status == THINK)
@@ -66,48 +67,63 @@ void	ft_print_status(int status, int id)
 
 void	*cycle(void *void_options)
 {
+	// struct timeval current_t;
 	t_options	*options;
+	// long int	timestart;
+	// long int	timestamp;
+	// long int	counter;
 	
 	options = (t_options*)void_options;
 	
-	// EAT
-	if (options->identifier == 1) // pour eviter que tous les philo se jettent en premier sur leur fourchette droite, ce qui cause un deadlock: chaque philo a une fourchette dans la main, qu'il ne libère jamais 
-	{
-		if (pthread_mutex_lock(options->fork_l))
-			printf("error lock\n");
-	}
-	else
-	{
-		if (pthread_mutex_lock(options->fork_r))
-			printf("error lock\n");
-	}
-	ft_print_status(FORK, options->identifier);
+	// counter = 0;
+	// gettimeofday(&current_t, NULL);
+	// timestart = (long)(current_t.tv_sec * 1000 + current_t.tv_usec / 1000);
 	
-	if (options->identifier == 1)
+	while (1)
 	{
-		if (pthread_mutex_lock(options->fork_r))
-			printf("error lock\n");
+		// LOCK FORKS
+		if (options->identifier % 2 == 0) // pour eviter que tous les philo se jettent en premier sur leur fourchette droite, ce qui cause un deadlock: chaque philo a une fourchette dans la main, qu'il ne libère jamais 
+		{
+			if (pthread_mutex_lock(options->fork_l))
+				printf("error lock\n");
+		}
+		else
+		{
+			if (pthread_mutex_lock(options->fork_r))
+				printf("error lock\n");
+		}
+		ft_print_status(FORK, options->identifier);
+		
+		if (options->identifier % 2 == 0)
+		{
+			if (pthread_mutex_lock(options->fork_r))
+				printf("error lock\n");
+		}
+		else
+		{
+			if (pthread_mutex_lock(options->fork_l))
+				printf("error lock\n");
+		}
+		ft_print_status(FORK, options->identifier);
+		
+		// EAT
+		ft_print_status(EAT, options->identifier);
+		// timestamp = 0;
+		usleep(options->t_to_eat * 1000);	
+		
+		// UNLOCK FORKS
+		if (pthread_mutex_unlock(options->fork_l))
+			printf("error unlock\n");
+		if (pthread_mutex_unlock(options->fork_r))
+			printf("error unlock\n");
+		
+		// SLEEP
+		ft_print_status(SLEEP, options->identifier);
+		usleep(options->t_to_sleep * 1000);	
+		
+		//THINK
+		ft_print_status(THINK, options->identifier);
 	}
-	else
-	{
-		if (pthread_mutex_lock(options->fork_l))
-			printf("error lock\n");
-	}
-	ft_print_status(FORK, options->identifier);
-	
-	ft_print_status(EAT, options->identifier);
-	usleep(options->t_to_eat * 1000);	
-	if (pthread_mutex_unlock(options->fork_l))
-		printf("error unlock\n");
-	if (pthread_mutex_unlock(options->fork_r))
-		printf("error unlock\n");
-	
-	// SLEEP
-	ft_print_status(SLEEP, options->identifier);
-	usleep(options->t_to_sleep * 1000);	
-	
-	//THINK
-	ft_print_status(THINK, options->identifier);
 	return (NULL);
 }
 
@@ -180,5 +196,15 @@ int     main(int argc, char **argv)
 		pthread_join(thread[i], NULL);
 		i++;
 	}
+	i = 0;
+	while (i < num_philo)
+	{
+		pthread_mutex_destroy(&fork[i]);
+		free(options[i]);
+		i++;
+	}
+	free(options);
+	free(fork);
+	free(thread);
 	pthread_mutex_destroy(&lock_out);
 }
