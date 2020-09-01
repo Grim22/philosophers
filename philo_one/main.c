@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 14:51:02 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 15:12:59 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	create_threads(pthread_t **thread, t_options **options, int num_philo)
 int     main(int argc, char **argv)
 {
 	pthread_t	*thread; // tableau de pthreads
-	pthread_mutex_t	*forks; // tableau de phtread_mutexs
-	pthread_mutex_t *display; // pointeur sur mutex
+	pthread_mutex_t	*forks; // tableau de mutex
+	pthread_mutex_t display;
 	t_options	**options; // tableau de t_options*
 	int num_philo;
 	
@@ -48,12 +48,11 @@ int     main(int argc, char **argv)
 	num_philo = ft_atoi(argv[1]);
 	
 	forks = malloc(num_philo * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
-	display = malloc(sizeof(pthread_mutex_t));
-	init_mutexes(num_philo, forks, *display);
+	init_mutexes(num_philo, forks, &display);
 
 	malloc_options(&options, num_philo);
 	fill_options_args(options, argc, argv, num_philo);
-	fill_options_mutexes(options, display, forks, num_philo);
+	fill_options_mutexes(options, &display, forks, num_philo);
 	
 	create_threads(&thread, options, num_philo);
 	join_threads(num_philo, thread);

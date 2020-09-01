@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 14:50:51 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 15:11:20 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread
 void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
 void	free_options(int num, t_options **options);
 void	join_threads(int num, pthread_t *threads);
-void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t display);
+void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t *display);
 
 /*
 ** ---------------------- Libft prototypes ---------------------
