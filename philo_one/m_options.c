@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 14:55:46 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 15:51:38 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	fill_args(t_options *options, int argc, char **argv, int identifier)
 	options->t_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		options->num_of_time = ft_atoi(argv[5]);
+	else
+		options->num_of_time = UNSET;
 }
 
 void	fill_options_args(t_options **options, int argc, char **argv, int num_philo)

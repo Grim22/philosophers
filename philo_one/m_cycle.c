@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 14:45:00 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 15:52:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ void	*cycle(void *void_options)
 {
 	// struct timeval current_t;
 	t_options	*options;
+	int count_eat;
 	// long int	timestart;
 	// long int	timestamp;
 	// long int	counter;
 	
 	options = (t_options*)void_options;
-	
+	count_eat = 0;
 	// counter = 0;
 	// gettimeofday(&current_t, NULL);
 	// timestart = (long)(current_t.tv_sec * 1000 + current_t.tv_usec / 1000);
 	
-	while (1)
+	while (options->num_of_time == UNSET || count_eat < options->num_of_time) // si num_of_time n'est pas donné, on boucle a l'infini
 	{
 		// LOCK FORKS
 		if (options->identifier % 2 == 0) // pour eviter que tous les philo se jettent en premier sur leur fourchette droite, ce qui cause un deadlock: chaque philo a une fourchette dans la main, qu'il ne libère jamais 
@@ -88,6 +89,7 @@ void	*cycle(void *void_options)
 		
 		// EAT
 		ft_print_status(EAT, options->identifier, options->display);
+		count_eat++;
 		// timestamp = 0;
 		usleep(options->t_to_eat * 1000);	
 		
