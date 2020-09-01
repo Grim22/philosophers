@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 15:27:00 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 15:37:20 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,14 @@ int		check_args(int argc)
 	}
 	return (EXIT_SUCCESS);
 }
-void	create_threads(pthread_t **thread, t_options **options, int num_philo)
-{
-	int i;
-	
-	*thread = malloc(num_philo * sizeof(pthread_t)); // Chaque thread[i] est un pthread_t
-	i = 0;
-	while (i < num_philo)
-	{
-		pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]);
-		i++;
-	}
-}
+
 
 int     main(int argc, char **argv)
 {
-	pthread_t	*thread; // tableau de pthreads
-	pthread_mutex_t	*forks; // tableau de mutex
-	pthread_mutex_t display;
-	t_options	**options; // tableau de t_options*
+	pthread_t	*thread; // tableau de pthreads: un thread par philo
+	pthread_mutex_t	*forks; // tableau de mutex: chacun pour une fourchette
+	pthread_mutex_t display; // mutex pour l'affichage à l'écran des statuts
+	t_options	**options; // tableau de t_options* (arguments envoyés aux threads)
 	int num_philo;
 	
 	if (check_args(argc) == EXIT_FAILURE)
@@ -57,5 +46,5 @@ int     main(int argc, char **argv)
 	
 	join_threads(num_philo, thread);
 	free_options(num_philo, options);
-	destroy_mutexes(num_philo, forks, lock_out);
+	destroy_mutexes(num_philo, forks, display);
 }

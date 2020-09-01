@@ -46,9 +46,10 @@ endif
 # ---------------- SRC --------------- #
 
 SRCS += main.c
-SRCS += m_utils.c
+SRCS += m_init.c
 SRCS += m_options.c
 SRCS += m_cycle.c
+SRCS += m_end.c
 
 #libft functions
 SRCS += ft_strlen.c

@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_utils.c                                          :+:      :+:    :+:   */
+/*   m_init.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 15:31:02 by bbrunet          ###   ########.fr       */
+/*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/09/01 15:35:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock)
+void	create_threads(pthread_t **thread, t_options **options, int num_philo)
 {
 	int i;
-
+	
+	*thread = malloc(num_philo * sizeof(pthread_t));
 	i = 0;
-	while (i < num)
+	while (i < num_philo)
 	{
-		pthread_mutex_destroy(&forks[i]);
+		pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]);
 		i++;
 	}
-	free(forks);
-	pthread_mutex_destroy(&lock);
 }
 
 void    init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
@@ -38,30 +37,4 @@ void    init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
 		pthread_mutex_init(&fork[0][i], NULL);
 		i++;
 	}
-}
-
-void	free_options(int num, t_options **options)
-{
-	int i;
-
-	i = 0;
-	while (i < num)
-	{
-		free(options[i]);
-		i++;
-	}
-	free(options);
-}
-
-void	join_threads(int num, pthread_t *threads)
-{
-	int i;
-
-	i = 0;
-	while (i < num)
-	{
-		pthread_join(threads[i], NULL);
-		i++;
-	}
-	free(threads);
 }
