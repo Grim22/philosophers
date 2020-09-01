@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 15:35:29 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 16:40:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-void	create_threads(pthread_t **thread, t_options **options, int num_philo)
+int	create_threads(pthread_t **thread, t_options **options, int num_philo)
 {
 	int i;
 	
@@ -20,21 +20,35 @@ void	create_threads(pthread_t **thread, t_options **options, int num_philo)
 	i = 0;
 	while (i < num_philo)
 	{
-		pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]);
+		if (pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]))
+		{
+			ft_putendl_fd("pthread_create failed", 2);
+			return (EXIT_FAILURE);
+		}
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 
-void    init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
+int	init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
 {
 	int i;
 
     pthread_mutex_init(display, NULL);
-	*fork = malloc(num * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
+	if (!(*fork = malloc(num * sizeof(pthread_mutex_t))))
+	{
+		ft_putendl_fd("malloc failed", 2);
+		return (EXIT_FAILURE);
+	}
 	i = 0;
 	while (i < num)
 	{
-		pthread_mutex_init(&fork[0][i], NULL);
+		if (pthread_mutex_init(&fork[0][i], NULL))
+		{
+			ft_putendl_fd("mutex_init failed", 2);
+			return (EXIT_FAILURE);
+		}
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }

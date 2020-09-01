@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 15:51:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 16:32:34 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,26 @@ void	fill_options_args(t_options **options, int argc, char **argv, int num_philo
 	}
 }
 
-void	malloc_options(t_options ***options, int num)
+int		malloc_options(t_options ***options, int num)
 {
 	int i;
 	
-	*options = malloc(num * sizeof(t_options*)); // malloc du tableau de t_option*
+	if (!(*options = malloc(num * sizeof(t_options*))))
+	{
+		ft_putendl_fd("malloc failed", 2);
+		return (EXIT_FAILURE);
+	}
 	i = 0;
 	while (i < num)
 	{
-		options[0][i] = malloc(sizeof(t_options));
+		if (!(options[0][i] = malloc(sizeof(t_options))))
+		{
+			ft_putendl_fd("malloc failed", 2);
+			return (EXIT_FAILURE);
+		}
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork, int num)

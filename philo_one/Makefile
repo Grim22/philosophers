@@ -56,6 +56,7 @@ SRCS += ft_strlen.c
 SRCS += ft_atoi.c
 SRCS += ft_putstr.c
 SRCS += ft_itoa.c
+SRCS += ft_isdigit.c
 
 # vpath %.c ./srcs/
 
