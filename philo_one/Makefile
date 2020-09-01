@@ -46,8 +46,9 @@ endif
 # ---------------- SRC --------------- #
 
 SRCS += main.c
-SRCS += utils.c
-SRCS += cycle.c
+SRCS += m_utils.c
+SRCS += m_options.c
+SRCS += m_cycle.c
 
 #libft functions
 SRCS += ft_strlen.c
