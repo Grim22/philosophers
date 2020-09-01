@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 11:03:07 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 12:21:43 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct  s_options
     int num_of_time;
     pthread_mutex_t *fork_l; // fourchette gauche: pointeur sur une des fourchettes
     pthread_mutex_t *fork_r; // fourchette à droite: pointeur sur une des fourchettes
+    pthread_mutex_t *display; // pointeur sur le mutex qui gère l'affichage à l'écran
 }               t_options;
 
 enum	e_state
@@ -41,7 +42,9 @@ pthread_mutex_t lock_out;
 
 
 void	*cycle(void *void_options);
-void	fill_options(t_options ***options, int num_philo, int argc, char **argv, pthread_mutex_t *fork);
+void	fill_options_args(t_options **options, int argc, char **argv, int num);
+void	malloc_options(t_options ***options, int num);
+void	fill_options_mutexes(t_options **options, pthread_mutex_t display, pthread_mutex_t *fork, int num);
 void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
 void	free_options(int num, t_options **options);
 void	join_threads(int num, pthread_t *threads);
