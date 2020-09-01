@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cycle.c                                            :+:      :+:    :+:   */
+/*   m_cycle.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 18:21:06 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 14:45:00 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-void	ft_print_status(int status, int id)
+void	ft_print_status(int status, int id, pthread_mutex_t *display)
 {
 	struct timeval current_t;
 	char *timestamp;
 	char *identifier;
 	
-	pthread_mutex_lock(&lock_out); // partie locked pour que les threads n'affichent pas les statuts en meme temps
+	pthread_mutex_lock(display); // partie locked pour que les threads n'affichent pas les statuts en meme temps
 	
 	gettimeofday(&current_t, NULL);
 	timestamp = ft_itoa((long)(current_t.tv_sec * 1000 + current_t.tv_usec / 1000));
@@ -42,7 +42,7 @@ void	ft_print_status(int status, int id)
 	if (status == DIE)
 		ft_putendl_fd(" died", 1);
 	
-	pthread_mutex_unlock(&lock_out);
+	pthread_mutex_unlock(display);
 }
 
 void	*cycle(void *void_options)
@@ -72,7 +72,7 @@ void	*cycle(void *void_options)
 			if (pthread_mutex_lock(options->fork_r))
 				printf("error lock\n");
 		}
-		ft_print_status(FORK, options->identifier);
+		ft_print_status(FORK, options->identifier, options->display);
 		
 		if (options->identifier % 2 == 0)
 		{
@@ -84,10 +84,10 @@ void	*cycle(void *void_options)
 			if (pthread_mutex_lock(options->fork_l))
 				printf("error lock\n");
 		}
-		ft_print_status(FORK, options->identifier);
+		ft_print_status(FORK, options->identifier, options->display);
 		
 		// EAT
-		ft_print_status(EAT, options->identifier);
+		ft_print_status(EAT, options->identifier, options->display);
 		// timestamp = 0;
 		usleep(options->t_to_eat * 1000);	
 		
@@ -98,11 +98,11 @@ void	*cycle(void *void_options)
 			printf("error unlock\n");
 		
 		// SLEEP
-		ft_print_status(SLEEP, options->identifier);
+		ft_print_status(SLEEP, options->identifier, options->display);
 		usleep(options->t_to_sleep * 1000);	
 		
 		//THINK
-		ft_print_status(THINK, options->identifier);
+		ft_print_status(THINK, options->identifier, options->display);
 	}
 	return (NULL);
 }

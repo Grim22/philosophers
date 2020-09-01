@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 12:21:43 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 14:50:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ pthread_mutex_t lock_out;
 void	*cycle(void *void_options);
 void	fill_options_args(t_options **options, int argc, char **argv, int num);
 void	malloc_options(t_options ***options, int num);
-void	fill_options_mutexes(t_options **options, pthread_mutex_t display, pthread_mutex_t *fork, int num);
+void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork, int num);
 void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
 void	free_options(int num, t_options **options);
 void	join_threads(int num, pthread_t *threads);
-void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t lock);
+void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t display);
 
 /*
 ** ---------------------- Libft prototypes ---------------------

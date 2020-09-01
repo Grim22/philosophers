@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   m_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/31 18:11:07 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 14:12:50 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock)
 	pthread_mutex_destroy(&lock);
 }
 
-void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t lock)
+void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t display)
 {
 	int i;
 
-    pthread_mutex_init(&lock, NULL); // init de lock_out (variable globale)
+    pthread_mutex_init(&display, NULL);
 	i = 0;
 	while (i < num)
 	{

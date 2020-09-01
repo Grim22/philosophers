@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 12:21:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 14:55:46 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	malloc_options(t_options ***options, int num)
 	}
 }
 
-void	fill_options_mutexes(t_options **options, pthread_mutex_t display, pthread_mutex_t *fork, int num)
+void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork, int num)
 {
 	int i;
 
@@ -59,7 +59,7 @@ void	fill_options_mutexes(t_options **options, pthread_mutex_t display, pthread_
 		else
 			options[i]->fork_r = &fork[i + 1];
 		options[i]->fork_l = &fork[i];
-		options[i]->display = &display;
+		options[i]->display = display;
 		i++;
 	}
 }
