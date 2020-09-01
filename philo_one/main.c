@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 15:12:59 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 15:27:00 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,15 @@ int     main(int argc, char **argv)
 
 	num_philo = ft_atoi(argv[1]);
 	
-	forks = malloc(num_philo * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
-	init_mutexes(num_philo, forks, &display);
+	init_mutexes(num_philo, &forks, &display);
 
 	malloc_options(&options, num_philo);
 	fill_options_args(options, argc, argv, num_philo);
 	fill_options_mutexes(options, &display, forks, num_philo);
 	
 	create_threads(&thread, options, num_philo);
-	join_threads(num_philo, thread);
 	
+	join_threads(num_philo, thread);
 	free_options(num_philo, options);
 	destroy_mutexes(num_philo, forks, lock_out);
 }

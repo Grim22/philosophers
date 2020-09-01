@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 15:11:36 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 15:31:02 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ void	destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock)
 	pthread_mutex_destroy(&lock);
 }
 
-void    init_mutexes(int num, pthread_mutex_t *fork, pthread_mutex_t *display)
+void    init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
 {
 	int i;
 
     pthread_mutex_init(display, NULL);
+	*fork = malloc(num * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
 	i = 0;
 	while (i < num)
 	{
-		pthread_mutex_init(&fork[i], NULL);
+		pthread_mutex_init(&fork[0][i], NULL);
 		i++;
 	}
 }
