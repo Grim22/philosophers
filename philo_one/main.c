@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 12:21:08 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/01 14:09:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ int		check_args(int argc)
 	}
 	return (EXIT_SUCCESS);
 }
+void	create_threads(pthread_t **thread, t_options **options, int num_philo)
+{
+	int i;
+	
+	*thread = malloc(num_philo * sizeof(pthread_t)); // Chaque thread[i] est un pthread_t
+	i = 0;
+	while (i < num_philo)
+	{
+		pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]);
+		i++;
+	}
+}
 
 int     main(int argc, char **argv)
 {
@@ -28,7 +40,6 @@ int     main(int argc, char **argv)
 	pthread_mutex_t	*forks; // tableau de phtread_mutexs
 	pthread_mutex_t display;
 	t_options	**options; // tableau de t_options*
-	int i;
 	int num_philo;
 	
 	if (check_args(argc) == EXIT_FAILURE)
@@ -38,20 +49,14 @@ int     main(int argc, char **argv)
 	
 	forks = malloc(num_philo * sizeof(pthread_mutex_t)); // chaque fork[i] est un pthread_mutex
 	init_mutexes(num_philo, forks, display);
-	
-	thread = malloc(num_philo * sizeof(pthread_t)); // Chaque thread[i] est un pthread_t
 
 	malloc_options(&options, num_philo);
 	fill_options_args(options, argc, argv, num_philo);
 	fill_options_mutexes(options, display, forks, num_philo);
 	
-	i = 0;
-	while (i < num_philo)
-	{
-		pthread_create(&thread[i], NULL, &cycle, (void*)options[i]);
-		i++;
-	}
+	create_threads(&thread, options, num_philo);
 	join_threads(num_philo, thread);
+	
 	free_options(num_philo, options);
 	destroy_mutexes(num_philo, forks, lock_out);
 }
