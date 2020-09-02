@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 16:51:08 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 10:34:05 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 
 typedef struct  s_options
 {
-    int identifier;
-    int t_to_die;
-    int t_to_eat;
-    int t_to_sleep;
-    int num_of_time;
+    int             identifier;
+    int             t_to_die;
+    int             t_to_eat;
+    int             t_to_sleep;
+    int             num_of_time;
+    int             stop;
+    long int        latest_meal;
     pthread_mutex_t *fork_l; // fourchette gauche: pointeur sur une des fourchettes
     pthread_mutex_t *fork_r; // fourchette à droite: pointeur sur une des fourchettes
     pthread_mutex_t *display; // pointeur sur le mutex qui gère l'affichage à l'écran
@@ -39,6 +41,8 @@ enum	e_state
 };
 
 #define UNSET -1
+#define YES 1
+#define NO 0
 
 /*
 ** ---------------------- Philo prototypes ---------------------

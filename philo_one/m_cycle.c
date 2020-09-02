@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 17:32:13 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 10:58:47 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,66 @@ void	lock_forks(t_options *options)
 		ft_print_status(FORK, options->identifier, options->display);
 }
 
+void	*death_alarm(void *void_options)
+{
+	int	max;
+	t_options *options;
+	long int start_time;
+	long int current_time;
+	int elapsed_time;
+	struct timeval current_t;
+	
+	options = (t_options*)void_options;
+	max = options->t_to_die;
+	printf("max: %d\n", max);
+	gettimeofday(&current_t, NULL);
+	start_time = current_t.tv_sec * 1000 + current_t.tv_usec / 1000; // en ms
+	while (1)
+	{
+		gettimeofday(&current_t, NULL);
+		current_time = current_t.tv_sec * 1000 + current_t.tv_usec / 1000; // en ms
+		if (options->latest_meal)
+			elapsed_time = current_time - options->latest_meal;
+		else
+			elapsed_time = current_time - start_time;
+		// printf("id: %d elapsed: %d\n", options->identifier, elapsed_time);
+		if (elapsed_time > max)
+		{
+			options->stop = YES;
+			printf("id: %d stop signal\n", options->identifier);
+			return (NULL);
+		}
+		usleep(10000); // 1 ms (pas plus de 10ms entre la mort et l'affichage de la mort)
+	}
+}
+
+void	set_latest_meal_time(t_options *options)
+{
+	struct timeval current_t;
+	
+	gettimeofday(&current_t, NULL);
+	options->latest_meal = current_t.tv_sec * 1000 + current_t.tv_usec / 1000;
+}
+
 void	*cycle(void *void_options)
 {
 	t_options	*options;
-	int count_eat;
+	pthread_t	clock;
+	int			count_eat;
 	
 	options = (t_options*)void_options;
 	count_eat = 0;
+	
+	if (pthread_create(&clock, NULL, &death_alarm, options))
+		printf("problem\n");
+	// pthread_join(clock, NULL);
+	pthread_detach(clock);
 	
 	while (options->num_of_time == UNSET || count_eat < options->num_of_time) // si num_of_time n'est pas donné, on boucle a l'infini
 	{
 		lock_forks(options);
 		ft_print_status(EAT, options->identifier, options->display);
+		set_latest_meal_time(options);
 		count_eat++;
 		usleep(options->t_to_eat * 1000);	
 		unlock_forks(options);
