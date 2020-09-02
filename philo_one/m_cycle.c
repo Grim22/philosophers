@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 10:58:47 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 13:59:18 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_print_status_end(int status)
 {
 	if (status == EAT)
-		ft_putendl_fd(" is EATING !", 1);
+		ft_putendl_fd(" is eating", 1);
 	if (status == SLEEP)
 		ft_putendl_fd(" is sleeping", 1);
 	if (status == THINK)
@@ -90,7 +90,7 @@ void	*death_alarm(void *void_options)
 	
 	options = (t_options*)void_options;
 	max = options->t_to_die;
-	printf("max: %d\n", max);
+	// printf("max: %d\n", max);
 	gettimeofday(&current_t, NULL);
 	start_time = current_t.tv_sec * 1000 + current_t.tv_usec / 1000; // en ms
 	while (1)
@@ -105,7 +105,7 @@ void	*death_alarm(void *void_options)
 		if (elapsed_time > max)
 		{
 			options->stop = YES;
-			printf("id: %d stop signal\n", options->identifier);
+			ft_print_status(DIE, options->identifier, options->display);
 			return (NULL);
 		}
 		usleep(10000); // 1 ms (pas plus de 10ms entre la mort et l'affichage de la mort)
@@ -137,8 +137,8 @@ void	*cycle(void *void_options)
 	while (options->num_of_time == UNSET || count_eat < options->num_of_time) // si num_of_time n'est pas donné, on boucle a l'infini
 	{
 		lock_forks(options);
-		ft_print_status(EAT, options->identifier, options->display);
 		set_latest_meal_time(options);
+		ft_print_status(EAT, options->identifier, options->display);
 		count_eat++;
 		usleep(options->t_to_eat * 1000);	
 		unlock_forks(options);
