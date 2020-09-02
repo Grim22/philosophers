@@ -6,16 +6,21 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 16:40:29 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 14:58:41 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int	create_threads(pthread_t **thread, t_options **options, int num_philo)
+int	create_threads(pthread_t **thread, pthread_t *thread_stop, t_options **options, int num_philo)
 {
 	int i;
 	
+	if (pthread_create(thread_stop, NULL, &stop, (void*)options))
+	{
+		ft_putendl_fd("pthread_create failed", 2);
+		return (EXIT_FAILURE);
+	}
 	*thread = malloc(num_philo * sizeof(pthread_t));
 	i = 0;
 	while (i < num_philo)
@@ -25,6 +30,7 @@ int	create_threads(pthread_t **thread, t_options **options, int num_philo)
 			ft_putendl_fd("pthread_create failed", 2);
 			return (EXIT_FAILURE);
 		}
+		pthread_detach(thread[0][i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);

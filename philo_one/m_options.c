@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 14:48:40 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 15:07:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		malloc_options(t_options ***options, int num)
 {
 	int i;
 	
-	if (!(*options = malloc(num * sizeof(t_options*))))
+	if (!(*options = malloc((num + 1) * sizeof(t_options*))))
 	{
 		ft_putendl_fd("malloc failed", 2);
 		return (EXIT_FAILURE);
@@ -58,6 +58,7 @@ int		malloc_options(t_options ***options, int num)
 		}
 		i++;
 	}
+	options[0][i] = NULL;
 	return (EXIT_SUCCESS);
 }
 

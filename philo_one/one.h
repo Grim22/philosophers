@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 14:37:22 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 14:57:42 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ enum	e_state
 */
 
 int     init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display);
-int     create_threads(pthread_t **thread, t_options **options, int num_philo);
+int     create_threads(pthread_t **thread, pthread_t *thread_stop, t_options **options, int num_philo);
 
 void	fill_options_args(t_options **options, int argc, char **argv, int num);
 int     malloc_options(t_options ***options, int num);
 void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork, int num);
 
 void	*cycle(void *void_options);
+void	*stop(void *void_options);
 
 int     destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
 void	free_options(int num, t_options **options);

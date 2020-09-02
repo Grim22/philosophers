@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 13:59:18 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 15:45:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ void	*death_alarm(void *void_options)
 		// printf("id: %d elapsed: %d\n", options->identifier, elapsed_time);
 		if (elapsed_time > max)
 		{
-			options->stop = YES;
+			options->died = YES;
 			ft_print_status(DIE, options->identifier, options->display);
 			return (NULL);
 		}
-		usleep(10000); // 1 ms (pas plus de 10ms entre la mort et l'affichage de la mort)
+		usleep(1000); // 1 ms (pas plus de 10ms entre la mort et l'affichage de la mort)
 	}
 }
 
@@ -131,15 +131,16 @@ void	*cycle(void *void_options)
 	
 	if (pthread_create(&clock, NULL, &death_alarm, options))
 		printf("problem\n");
-	// pthread_join(clock, NULL);
 	pthread_detach(clock);
 	
-	while (options->num_of_time == UNSET || count_eat < options->num_of_time) // si num_of_time n'est pas donné, on boucle a l'infini
+	while (1)
 	{
 		lock_forks(options);
 		set_latest_meal_time(options);
 		ft_print_status(EAT, options->identifier, options->display);
 		count_eat++;
+		if (options->num_of_time != UNSET && count_eat >= options->num_of_time)
+			options->enough_food = YES;
 		usleep(options->t_to_eat * 1000);	
 		unlock_forks(options);
 		

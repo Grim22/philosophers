@@ -2,3 +2,11 @@ faire un check que chaque argument soit bien un entier positif (strictement ?)
     tester les cas particuliers 1 et 0
 
 proteger les atoi contre des arguments trop grands
+
+probleme avec les mutex: les mutex sont détruits alors meme que les threads qui les utilisent sont toujours en train de tourner
+
+probleme du temps de latence entre [la mort d'un philo / tous les philos ont assez mangé] et l'arrêt du programme
+-> verouiller le mutex display pour ne plus avoir d'affichage ?
+
+pour empècher qu'il y ait de statuts affichés (entre la mort d'un philo et l'arrêt de tous les threads), peut être devoir utiliser un mutex au niveau du print_status, qui serait locked ici
+-> voir s'il ne faudrait pas arreter les threads ?

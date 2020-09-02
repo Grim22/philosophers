@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 16:51:30 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 15:29:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t display)
 	{
 		if (pthread_mutex_destroy(&forks[i]))
 		{
-			ft_putendl_fd("pthread_mutex_destroy failed", 2);
+			ft_putendl_fd("pthread_mutex_destroy fork failed", 2);
 			return (EXIT_FAILURE);
 		}
 		i++;
@@ -29,7 +29,7 @@ int		destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t display)
 	free(forks);
 	if (pthread_mutex_destroy(&display))
 	{
-		ft_putendl_fd("pthread_mutex_destroy failed", 2);
+		ft_putendl_fd("pthread_mutex_destroy display failed", 2);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

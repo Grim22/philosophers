@@ -49,6 +49,7 @@ SRCS += main.c
 SRCS += m_init.c
 SRCS += m_options.c
 SRCS += m_cycle.c
+SRCS += m_stop.c
 SRCS += m_end.c
 
 #libft functions
