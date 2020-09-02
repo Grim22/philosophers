@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 15:07:15 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 18:14:10 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,19 @@ void	fill_args(t_options *options, int argc, char **argv, int identifier)
 		options->num_of_time = UNSET;
 }
 
-void	fill_options_args(t_options **options, int argc, char **argv, int num_philo)
+void	fill_options_args(t_options **options, int argc, char **argv)
 {
 	int i;
 
+	struct timeval current_t;
+	long int time;
+	
+	gettimeofday(&current_t, NULL);
+	time = current_t.tv_sec * 1000 + current_t.tv_usec / 1000; // en ms
 	i = 0;
-	while (i < num_philo)
+	while (options[i])
 	{
+		options[i]->timestamp_start = time;
 		fill_args(options[i], argc, argv, i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 15:35:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 18:14:38 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int     main(int argc, char **argv)
 	if (init_mutexes(num_philo, &forks, &display) == EXIT_FAILURE
 		|| malloc_options(&options, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	fill_options_args(options, argc, argv, num_philo);
+	fill_options_args(options, argc, argv);
 	fill_options_mutexes(options, &display, forks, num_philo);
 	if (create_threads(&thread, &thread_stop, options, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

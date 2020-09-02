@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 14:57:42 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/02 18:15:10 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ typedef struct  s_options
     int             t_to_sleep;
     int             num_of_time;
     long int        latest_meal; //  timestamp du dernier repas
+    long int        timestamp_start; // timestamp debut simulation
     int             died; // booléen: YES or NO
     int             enough_food; // booléen: YES si a mangé au moins num_of_time;
+    // int             *stop_all; // signal pour les threads qu'il faut exit
     pthread_mutex_t *fork_l; // fourchette gauche: pointeur sur une des fourchettes
     pthread_mutex_t *fork_r; // fourchette à droite: pointeur sur une des fourchettes
     pthread_mutex_t *display; // pointeur sur le mutex qui gère l'affichage à l'écran
@@ -52,7 +54,7 @@ enum	e_state
 int     init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display);
 int     create_threads(pthread_t **thread, pthread_t *thread_stop, t_options **options, int num_philo);
 
-void	fill_options_args(t_options **options, int argc, char **argv, int num);
+void	fill_options_args(t_options **options, int argc, char **argv);
 int     malloc_options(t_options ***options, int num);
 void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork, int num);
 
