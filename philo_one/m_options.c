@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 12:01:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:28:55 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	fill_args(t_options *options, int argc, char **argv, int identifier)
 	options->t_to_sleep = ft_atoi(argv[4]);
 	options->died = NO;
 	options->enough_food = NO;
+	options->stop_all = NO;
 	options->latest_meal = 0;
 	if (argc == 6)
 		options->num_of_time = ft_atoi(argv[5]);

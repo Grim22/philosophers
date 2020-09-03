@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 12:33:08 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:31:42 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,6 @@ int		lock_forks(t_options *options)
 	}
 	return (EXIT_SUCCESS);
 }
-	
-	// if (options->identifier % 2 == 0) // pour eviter que tous les philo se jettent en premier sur leur fourchette droite, ce qui cause un deadlock: chaque philo a une fourchette dans la main, qu'il ne libère jamais 
-	// {
-	// 	if (pthread_mutex_lock(options->fork_l))
-	// 		printf("error lock\n");
-	// }
-	// else
-	// {
-	// 	if (pthread_mutex_lock(options->fork_r))
-	// 		printf("error lock\n");
-	// }
-	// ft_print_status(FORK, options);
-
-	// if (options->identifier % 2 == 0)
-	// {
-	// 	if (pthread_mutex_lock(options->fork_r))
-	// 		printf("error lock\n");
-	// }
-	// else
-	// {
-	// 	if (pthread_mutex_lock(options->fork_l))
-	// 		printf("error lock\n");
-	// }
-	// ft_print_status(FORK, options);
-// }
 
 void	check_eat_number(int *counter, t_options *options)
 {
@@ -123,7 +98,6 @@ void	*cycle(void *void_options)
 		usleep(options->t_to_eat * 1000);	
 		if (unlock_forks(options) == EXIT_FAILURE)
 			return (NULL);
-		
 		ft_print_status(SLEEP, options);
 		usleep(options->t_to_sleep * 1000);	
 		ft_print_status(THINK, options);

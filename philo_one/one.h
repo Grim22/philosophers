@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 12:13:49 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:28:39 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct  s_options
     long int        timestamp_start; // timestamp debut simulation
     int             died; // booléen: YES or NO
     int             enough_food; // booléen: YES si a mangé au moins num_of_time;
-    // int             *stop_all; // signal pour les threads qu'il faut exit
+    int             stop_all; // signal pour les threads qu'il faut exit
     pthread_mutex_t *fork_l; // fourchette gauche: pointeur sur une des fourchettes
     pthread_mutex_t *fork_r; // fourchette à droite: pointeur sur une des fourchettes
     pthread_mutex_t *display; // pointeur sur le mutex qui gère l'affichage à l'écran

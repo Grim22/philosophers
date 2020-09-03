@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_stop.c                                           :+:      :+:    :+:   */
+/*   thread_stop.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:57:56 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 15:44:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:28:27 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ int     check_stop(t_options **options)
         return (NO);
 }
 
+void    stop_all(t_options **options)
+{
+    int i;
+
+    i = 0;
+    while (options[i])
+    {
+        options[i]->stop_all = YES;
+        i++;
+    }
+}
+
 void    *stop(void *void_options)
 {
     t_options   **options;
@@ -42,7 +54,10 @@ void    *stop(void *void_options)
     while (1)
     {
         if (check_stop(options) == YES)
+        {
+            stop_all(options); 
             return (NULL);
+        }
         usleep(1000);
     }
     return (NULL);
