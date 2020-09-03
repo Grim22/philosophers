@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 14:28:39 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 18:07:18 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,20 @@ enum	e_state
 
 int     init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display);
 int     create_threads(pthread_t **thread, pthread_t *thread_stop, t_options **options, int num_philo);
+int     create_death_thread(t_options *options);
 
 void	fill_options_args(t_options **options, int argc, char **argv);
 int     malloc_options(t_options ***options, int num);
 void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork, int num);
 
+long    ft_get_mstime();
+
 void	*cycle(void *void_options);
 void	*stop(void *void_options);
-int     create_death_thread(t_options *options);
 
 void    ft_print_status(int status, t_options *options);
-long    ft_get_mstime();
+int		lock_forks(t_options *options);
+int		unlock_forks(t_options *options);
 
 int     destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
 void	free_options(int num, t_options **options);

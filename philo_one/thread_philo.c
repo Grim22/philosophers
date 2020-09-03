@@ -6,69 +6,11 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 17:21:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 18:04:28 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
-
-int		unlock_forks(t_options *options)
-{
-	if (pthread_mutex_unlock(options->fork_l))
-	{
-		ft_putendl_fd("unlock fork failed", 2);
-		return (EXIT_FAILURE);
-	}
-	if (pthread_mutex_unlock(options->fork_r))
-	{
-		ft_putendl_fd("unlock fork failed", 2);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
-int		lock_forks_even(t_options *options)
-{
-	if (pthread_mutex_lock(options->fork_l) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_print_status(FORK, options);
-	if (pthread_mutex_lock(options->fork_r) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_print_status(FORK, options);
-	return (EXIT_SUCCESS);
-}
-
-int		lock_forks_odd(t_options *options)
-{
-	if (pthread_mutex_lock(options->fork_r) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_print_status(FORK, options);
-	if (pthread_mutex_lock(options->fork_l) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_print_status(FORK, options);
-	return (EXIT_SUCCESS);
-}
-
-int		lock_forks(t_options *options)
-{
-	if (options->identifier % 2 == 0)
-	{
-		if (lock_forks_even(options) == EXIT_FAILURE)
-		{
-			ft_putendl_fd("lock fork failed", 2);
-			return (EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		if (lock_forks_odd(options) == EXIT_FAILURE)
-		{
-			ft_putendl_fd("lock fork failed", 2);
-			return (EXIT_FAILURE);
-		}
-	}
-	return (EXIT_SUCCESS);
-}
 
 void	check_eat_number(int *counter, t_options *options)
 {
@@ -77,6 +19,19 @@ void	check_eat_number(int *counter, t_options *options)
 	(*counter)++;
 	if (*counter >= options->num_of_time)
 		options->enough_food = YES;
+}
+
+int		ft_eat(t_options *options, int *count_eat)
+{
+	if (lock_forks(options) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	options->latest_meal = ft_get_mstime();
+	ft_print_status(EAT, options);
+	check_eat_number(count_eat, options);
+	usleep(options->t_to_eat * 1000);	
+	if (unlock_forks(options) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 void	*cycle(void *void_options)
@@ -90,18 +45,10 @@ void	*cycle(void *void_options)
 		return (NULL);
 	while (options->stop_all == NO)
 	{
-		if (lock_forks(options) == EXIT_FAILURE)
+		if (ft_eat(options, &count_eat) == EXIT_FAILURE)
 			return (NULL);
-		options->latest_meal = ft_get_mstime();
-		ft_print_status(EAT, options);
-		check_eat_number(&count_eat, options);
-		usleep(options->t_to_eat * 1000);	
-		if (unlock_forks(options) == EXIT_FAILURE)
-			return (NULL);
-
 		if (options->stop_all == YES) // permet de terminer le thread plus rapidement (ne pas attendre le usleep du dessous)
 			return (NULL);
-
 		ft_print_status(SLEEP, options);
 		usleep(options->t_to_sleep * 1000);	
 		ft_print_status(THINK, options);
