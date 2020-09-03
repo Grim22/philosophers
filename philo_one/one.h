@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 11:54:49 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 12:13:49 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread
 
 void	*cycle(void *void_options);
 void	*stop(void *void_options);
+int     create_death_thread(t_options *options);
 
 void    ft_print_status(int status, t_options *options);
 long    ft_get_mstime();
