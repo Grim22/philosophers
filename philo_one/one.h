@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 18:15:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 11:48:57 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread
 
 void	*cycle(void *void_options);
 void	*stop(void *void_options);
+
+void	ft_print_status(int status, t_options *options);
 
 int     destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
 void	free_options(int num, t_options **options);
