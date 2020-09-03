@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 12:04:55 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:37:38 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		check_args(int argc, char **argv)
 
 int     main(int argc, char **argv)
 {
-	pthread_t		*thread; // tableau de pthreads: un thread par philo
+	pthread_t		*threads_philo; // tableau de pthreads: un thread par philo
 	pthread_t		thread_stop;
 	pthread_mutex_t	*forks; // tableau de mutex: chacun pour une fourchette
 	pthread_mutex_t	display; // mutex pour l'affichage à l'écran des statuts
@@ -59,12 +59,15 @@ int     main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	fill_options_args(options, argc, argv);
 	fill_options_mutexes(options, &display, forks, num_philo);
-	if (create_threads(&thread, &thread_stop, options, num_philo) == EXIT_FAILURE)
+	if (create_threads(&threads_philo, &thread_stop, options, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	pthread_join(thread_stop, NULL); // on attend seulement le thread qui gère la fin du process (les autres threads sont detached)
-	
+	// pthread_join(thread_stop, NULL);
+	join_threads(num_philo, threads_philo);
+
+	// destroy ne marche pas si tous les threads ne sont pas finis: les mutex sont encore utilisés
 	// if (destroy_mutexes(num_philo, forks, display) == EXIT_FAILURE)
 	// 	return (EXIT_FAILURE);
+	
 	free_options(num_philo, options);
 }

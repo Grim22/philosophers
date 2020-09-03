@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 14:31:42 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 14:40:53 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int		unlock_forks(t_options *options)
 {
 	if (pthread_mutex_unlock(options->fork_l))
 	{
-		ft_putendl_fd("unlock failed", 2);
+		ft_putendl_fd("unlock fork failed", 2);
 		return (EXIT_FAILURE);
 	}
 	if (pthread_mutex_unlock(options->fork_r))
 	{
-		ft_putendl_fd("unlock failed", 2);
+		ft_putendl_fd("unlock fork failed", 2);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -55,7 +55,7 @@ int		lock_forks(t_options *options)
 	{
 		if (lock_forks_even(options) == EXIT_FAILURE)
 		{
-			ft_putendl_fd("lock failed", 2);
+			ft_putendl_fd("lock fork failed", 2);
 			return (EXIT_FAILURE);
 		}
 	}
@@ -63,7 +63,7 @@ int		lock_forks(t_options *options)
 	{
 		if (lock_forks_odd(options) == EXIT_FAILURE)
 		{
-			ft_putendl_fd("lock failed", 2);
+			ft_putendl_fd("lock fork failed", 2);
 			return (EXIT_FAILURE);
 		}
 	}

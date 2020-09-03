@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 14:58:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 15:23:31 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	create_threads(pthread_t **thread, pthread_t *thread_stop, t_options **optio
 		ft_putendl_fd("pthread_create failed", 2);
 		return (EXIT_FAILURE);
 	}
+	pthread_detach(*thread_stop);
 	*thread = malloc(num_philo * sizeof(pthread_t));
 	i = 0;
 	while (i < num_philo)
@@ -30,7 +31,7 @@ int	create_threads(pthread_t **thread, pthread_t *thread_stop, t_options **optio
 			ft_putendl_fd("pthread_create failed", 2);
 			return (EXIT_FAILURE);
 		}
-		pthread_detach(thread[0][i]);
+		// pthread_detach(thread[0][i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);
