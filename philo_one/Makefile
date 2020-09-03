@@ -49,7 +49,9 @@ SRCS += main.c
 SRCS += m_init.c
 SRCS += m_options.c
 SRCS += m_end.c
+
 SRCS += t_print_status.c
+SRCS += t_utils.c
 SRCS += thread_stop.c
 SRCS += thread_philo.c
 

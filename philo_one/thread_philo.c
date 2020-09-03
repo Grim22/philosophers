@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 11:47:50 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 12:02:10 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,17 @@ void	*death_alarm(void *void_options)
 {
 	int	max;
 	t_options *options;
-	long int current_time;
 	int elapsed_time;
-	struct timeval current_t;
 	
 	options = (t_options*)void_options;
 	max = options->t_to_die;
 	// printf("max: %d\n", max);
 	while (1)
 	{
-		gettimeofday(&current_t, NULL);
-		current_time = current_t.tv_sec * 1000 + current_t.tv_usec / 1000; // en ms
 		if (options->latest_meal)
-			elapsed_time = current_time - options->latest_meal;
+			elapsed_time = ft_get_mstime() - options->latest_meal;
 		else
-			elapsed_time = current_time - options->timestamp_start;
+			elapsed_time = ft_get_mstime() - options->timestamp_start;
 		// printf("id: %d elapsed: %d\n", options->identifier, elapsed_time);
 		if (elapsed_time > max)
 		{
@@ -76,13 +72,6 @@ void	*death_alarm(void *void_options)
 	}
 }
 
-void	set_latest_meal_time(t_options *options)
-{
-	struct timeval current_t;
-	
-	gettimeofday(&current_t, NULL);
-	options->latest_meal = current_t.tv_sec * 1000 + current_t.tv_usec / 1000;
-}
 int		create_death_thread(t_options *options)
 {
 	pthread_t death_thread;
@@ -117,7 +106,7 @@ void	*cycle(void *void_options)
 	while (1)
 	{
 		lock_forks(options);
-		set_latest_meal_time(options);
+		options->latest_meal = ft_get_mstime();
 		ft_print_status(EAT, options);
 		check_eat_number(&count_eat, options);
 		usleep(options->t_to_eat * 1000);	
