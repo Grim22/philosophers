@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 14:37:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 17:18:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int     main(int argc, char **argv)
 	// pthread_join(thread_stop, NULL);
 	join_threads(num_philo, threads_philo);
 
-	// destroy ne marche pas si tous les threads ne sont pas finis: les mutex sont encore utilisés
-	// if (destroy_mutexes(num_philo, forks, display) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
+	// destroy ne marche pas si tous les threads ne sont joined: les mutex sont encore utilisés
+	if (destroy_mutexes(num_philo, forks, display) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	
 	free_options(num_philo, options);
 }

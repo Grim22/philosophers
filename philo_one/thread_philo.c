@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 14:40:53 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 17:21:14 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	*cycle(void *void_options)
 	count_eat = 0;
 	if (create_death_thread(options) == EXIT_FAILURE)
 		return (NULL);
-	while (1)
+	while (options->stop_all == NO)
 	{
 		if (lock_forks(options) == EXIT_FAILURE)
 			return (NULL);
@@ -98,6 +98,10 @@ void	*cycle(void *void_options)
 		usleep(options->t_to_eat * 1000);	
 		if (unlock_forks(options) == EXIT_FAILURE)
 			return (NULL);
+
+		if (options->stop_all == YES) // permet de terminer le thread plus rapidement (ne pas attendre le usleep du dessous)
+			return (NULL);
+
 		ft_print_status(SLEEP, options);
 		usleep(options->t_to_sleep * 1000);	
 		ft_print_status(THINK, options);

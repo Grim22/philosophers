@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:57:56 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 14:28:27 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/03 15:56:03 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void    *stop(void *void_options)
             stop_all(options); 
             return (NULL);
         }
-        usleep(1000);
+        usleep(1);
     }
     return (NULL);
 }
