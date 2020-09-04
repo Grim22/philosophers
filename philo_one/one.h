@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 18:07:18 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/04 12:35:40 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct  s_options
     long int        latest_meal; //  timestamp du dernier repas
     long int        timestamp_start; // timestamp debut simulation
     int             died; // booléen: YES or NO
-    int             enough_food; // booléen: YES si a mangé au moins num_of_time;
+    int             eat_num;
     int             stop_all; // signal pour les threads qu'il faut exit
     pthread_mutex_t *fork_l; // fourchette gauche: pointeur sur une des fourchettes
     pthread_mutex_t *fork_r; // fourchette à droite: pointeur sur une des fourchettes

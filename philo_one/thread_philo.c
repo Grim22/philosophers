@@ -6,28 +6,29 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 18:47:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/04 12:36:38 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-void	check_eat_number(int *counter, t_options *options)
-{
-	if (options->num_of_time == UNSET)
-		return ;
-	(*counter)++;
-	if (*counter >= options->num_of_time)
-		options->enough_food = YES;
-}
+// void	check_eat_number(int *counter, t_options *options)
+// {
+// 	if (options->num_of_time == UNSET)
+// 		return ;
+// 	(*counter)++;
+// 	if (*counter >= options->num_of_time)
+// 		options->enough_food = YES;
+// }
 
-int		ft_eat(t_options *options, int *count_eat)
+int		ft_eat(t_options *options)
 {
 	if (lock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	options->latest_meal = ft_get_mstime();
 	ft_print_status(EAT, options);
-	check_eat_number(count_eat, options);
+	options->eat_num++;
+	// check_eat_number(count_eat, options);
 	if (options->stop_all == YES)
 	{
 		unlock_forks(options);
@@ -42,15 +43,13 @@ int		ft_eat(t_options *options, int *count_eat)
 void	*cycle(void *void_options)
 {
 	t_options	*options;
-	int			count_eat;
 	
 	options = (t_options*)void_options;
-	count_eat = 0;
 	if (create_death_thread(options) == EXIT_FAILURE)
 		return (NULL);
 	while (options->stop_all == NO)
 	{
-		if (ft_eat(options, &count_eat) == EXIT_FAILURE)
+		if (ft_eat(options) == EXIT_FAILURE)
 			return (NULL);
 		if (options->stop_all == YES) // permet de terminer le thread plus rapidement (ne pas attendre le usleep du dessous)
 			return (NULL);
