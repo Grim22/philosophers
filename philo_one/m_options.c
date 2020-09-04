@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/04 12:35:27 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/04 12:41:47 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	fill_args(t_options *options, int argc, char **argv, int identifier)
 	options->latest_meal = 0;
 	options->eat_num = 0;
 	if (argc == 6)
-		options->num_of_time = ft_atoi(argv[5]);
+		options->eat_max = ft_atoi(argv[5]);
 	else
-		options->num_of_time = UNSET;
+		options->eat_max = UNSET;
 }
 
 void	fill_options_args(t_options **options, int argc, char **argv)

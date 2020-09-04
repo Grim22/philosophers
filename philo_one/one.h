@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/04 12:35:40 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/04 12:41:53 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct  s_options
     int             t_to_die;
     int             t_to_eat;
     int             t_to_sleep;
-    int             num_of_time;
+    int             eat_max;
     long int        latest_meal; //  timestamp du dernier repas
     long int        timestamp_start; // timestamp debut simulation
     int             died; // booléen: YES or NO

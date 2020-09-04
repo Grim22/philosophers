@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:57:56 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/04 12:33:59 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/04 12:42:08 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int     check_stop(t_options **options)
     int i;
 
     i = 0;
-    if (options[i]->num_of_time == UNSET)
+    if (options[i]->eat_max == UNSET)
         enough_food = NO;
     else
         enough_food = YES;
@@ -27,9 +27,9 @@ int     check_stop(t_options **options)
     {
         if (options[i]->died == YES)
             return (YES);
-        if (options[i]->num_of_time != UNSET)
+        if (options[i]->eat_max != UNSET)
         {
-            if (options[i]->eat_num < options[i]->num_of_time)
+            if (options[i]->eat_num < options[i]->eat_max)
                 enough_food = NO;
         }
         i++;
