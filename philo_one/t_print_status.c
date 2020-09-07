@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/03 17:32:32 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 11:23:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_print_status(int status, t_options *options)
 	elapsed = current_time - options->timestamp_start;
 	timestamp = ft_itoa(elapsed);
 	
-	usleep(1); // pour éviter qu'un thread aille "trop vite" et affiche du contenu alors que le jeu est déja terminé
+	// usleep(1); // pour éviter qu'un thread aille "trop vite" et affiche du contenu alors que le jeu est déja terminé
 	if (options->stop_all == YES)
 	{
 		pthread_mutex_unlock(options->display);
