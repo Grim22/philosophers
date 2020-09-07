@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:53:57 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 17:17:48 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ long    ft_get_mstime();
 void	*cycle(void *void_options);
 void	*stop(void *void_options);
 
-void    ft_print_status(int status, t_options *options);
+int     ft_print_status(int status, t_options *options);
 int		lock_forks(t_options *options);
 int		unlock_forks(t_options *options);
 

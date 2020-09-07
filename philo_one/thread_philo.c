@@ -6,29 +6,19 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:30:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 17:18:42 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
-
-// void	check_eat_number(int *counter, t_options *options)
-// {
-// 	if (options->num_of_time == UNSET)
-// 		return ;
-// 	(*counter)++;
-// 	if (*counter >= options->num_of_time)
-// 		options->enough_food = YES;
-// }
 
 int		ft_eat(t_options *options)
 {
 	if (lock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	options->latest_meal = ft_get_mstime();
-	ft_print_status(EAT, options);
-	// options->eat_num++;
-	// check_eat_number(count_eat, options);
+	if (ft_print_status(EAT, options) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (*(options->stop_all) == YES)
 	{
 		unlock_forks(options);
@@ -53,9 +43,11 @@ void	*cycle(void *void_options)
 			return (NULL);
 		if (*(options->stop_all) == YES) // permet de terminer le thread plus rapidement (ne pas attendre le usleep du dessous)
 			return (NULL);
-		ft_print_status(SLEEP, options);
+		if (ft_print_status(SLEEP, options) == EXIT_FAILURE)
+			return (NULL);
 		usleep(options->t_to_sleep * 1000);	
-		ft_print_status(THINK, options);
+		if (ft_print_status(THINK, options) == EXIT_FAILURE)
+			return (NULL);
 	}
 	return (NULL);
 }
