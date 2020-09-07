@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 16:34:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 17:11:54 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,33 +55,43 @@ void	check_stop(t_options *options, int status)
 	}
 }
 
-void	ft_print_status(int status, t_options *options)
+void	ft_print_timestamp(t_options *options)
 {
 	char *timestamp;
-	char *identifier;
 	long int elapsed;
 	long int current_time;
 	
-	if (*(options->stop_all) == YES)
-		return ;
-	
-	if (pthread_mutex_lock(options->display))
-		printf("lock display failed\n");
-	
-	if (*(options->stop_all) == YES)
-	{
-		pthread_mutex_unlock(options->display);
-		return ;
-	}
 	current_time = ft_get_mstime();
 	elapsed = current_time - options->timestamp_start;
 	timestamp = ft_itoa(elapsed);
 	ft_putstr_fd(timestamp, 1);
 	free(timestamp);
+}
+
+void	ft_print_identifier(t_options *options)
+{
+	char *identifier;
+	
 	ft_putstr_fd(" ", 1);
 	identifier = ft_itoa((long)options->identifier);
 	ft_putstr_fd(identifier, 1);
 	free(identifier);
+}
+
+void	ft_print_status(int status, t_options *options)
+{
+	
+	if (*(options->stop_all) == YES)
+		return ;
+	if (pthread_mutex_lock(options->display))
+		printf("lock display failed\n");
+	if (*(options->stop_all) == YES)
+	{
+		pthread_mutex_unlock(options->display);
+		return ;
+	}
+	ft_print_timestamp(options);
+	ft_print_identifier(options);
 	ft_print_status_end(status);
 	check_stop(options, status);
 	if (pthread_mutex_unlock(options->display))
