@@ -52,7 +52,6 @@ SRCS += m_end.c
 SRCS += m_utils.c
 
 SRCS += t_print_status.c
-SRCS += thread_stop.c
 SRCS += thread_philo.c
 SRCS += thread_philo_forks.c
 SRCS += thread_death.c
