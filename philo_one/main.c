@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:45:32 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:49:45 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,10 @@ int     main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	fill_options_args(options, argv, eat_num, &stop_all);
 	fill_options_mutexes(options, &display, forks);
-	if (create_threads(&threads_philo, options, num_philo) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-
-	join_threads(num_philo, threads_philo);
-
-	if (destroy_mutexes(num_philo, forks, display) == EXIT_FAILURE)
+	
+	if (create_threads(&threads_philo, options, num_philo) == EXIT_FAILURE
+	|| join_threads(num_philo, threads_philo) == EXIT_FAILURE
+	||	destroy_mutexes(num_philo, forks, display) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	
 	free_options(num_philo, options);
