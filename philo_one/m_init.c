@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:08:56 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:41:30 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,29 @@ int	init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
 		}
 		i++;
 	}
+	return (EXIT_SUCCESS);
+}
+
+void	fill_eat_num(int *eat_num, int num)
+{
+	int i;
+
+	i = 0;
+	while (i < num)
+	{
+		eat_num[i] = 0;
+		i++;
+	}
+}
+
+int	fill_vars(int num, int **eat_num, int *stop_all)
+{
+	if (!(*eat_num = malloc(num * sizeof(int))))
+	{
+		ft_putendl_fd("malloc failed", 2);
+		return (EXIT_FAILURE);
+	}
+	fill_eat_num(*eat_num, num);
+	*stop_all = NO;
 	return (EXIT_SUCCESS);
 }

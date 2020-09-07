@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:25:30 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:45:26 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ enum	e_state
 */
 
 int     init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display);
+int     fill_vars(int num, int **eat_num, int *stop_all);
 int     create_threads(pthread_t **thread, t_options **options, int num_philo);
 int     create_death_thread(t_options *options);
 
-void	fill_options_args(t_options **options, int argc, char **argv, int *eat_num, int *stop_all);
-int     malloc_options(t_options ***options, int num, int **eat_num);
+void	fill_options_args(t_options **options, char **argv, int *eat_num, int *stop_all);
+int     malloc_options(t_options ***options, int num);
 void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork);
 
 long    ft_get_mstime();
