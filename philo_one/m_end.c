@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/02 15:29:25 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:54:57 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ int		destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t display)
 	return (EXIT_SUCCESS);
 }
 
-void	free_options(int num, t_options **options)
+void	free_stuff(t_options **options, int *eat_num)
 {
 	int i;
 
+	free(eat_num);
 	i = 0;
-	while (i < num)
+	while (options[i])
 	{
 		free(options[i]);
 		i++;

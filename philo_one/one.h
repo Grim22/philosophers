@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:45:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:53:57 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct  s_options
     int             eat_max;
     long int        latest_meal; //  timestamp du dernier repas
     long int        timestamp_start; // timestamp debut simulation
-    int             died; // booléen: YES or NO
     int             *eat_num; // tableau qui contient le nombre de repas pris par chaque philo
     int             *stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
     pthread_mutex_t *fork_l; // fourchette gauche: pointeur sur une des fourchettes
@@ -71,7 +70,7 @@ int		lock_forks(t_options *options);
 int		unlock_forks(t_options *options);
 
 int     destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
-void	free_options(int num, t_options **options);
+void	free_stuff(t_options **options, int *eat_num);
 int     join_threads(int num, pthread_t *threads);
 
 /*

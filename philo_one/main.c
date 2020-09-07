@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:49:45 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:53:26 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ int     main(int argc, char **argv)
 	|| join_threads(num_philo, threads_philo) == EXIT_FAILURE
 	||	destroy_mutexes(num_philo, forks, display) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	
-	free_options(num_philo, options);
+	free_stuff(options, eat_num);
 }
