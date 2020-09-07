@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 12:14:19 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:29:47 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*death_alarm(void *void_options)
 	
 	options = (t_options*)void_options;
 	max = options->t_to_die;
-	while (options->stop_all == NO) // pour que le thread soit arrêté en cas de fin du programme pour cause de enough_eat
+	while (*(options->stop_all) == NO) // pour que le thread soit arrêté en cas de fin du programme pour cause de enough_eat
 	{
 		if (options->latest_meal)
 			elapsed_time = ft_get_mstime() - options->latest_meal;

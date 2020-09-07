@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:07:45 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:30:55 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int		check_enough_eat(int num, int *eat_num, int max)
 	i = 0;
 	while (i < num)
 	{
-		// printf("max: %d\n", max);
-		printf("index: %d, num: %d\n", i, eat_num[i]);
 		if (eat_num[i] < max)
 			return (NO);
 		i++;
@@ -50,13 +48,13 @@ void	ft_print_status(int status, t_options *options)
 	long int current_time;
 	int	*eat_num;
 	
-	if (options->stop_all == YES)
+	if (*(options->stop_all) == YES)
 		return ;
 	
 	if (pthread_mutex_lock(options->display))
 		printf("lock display failed\n");
 	
-	if (options->stop_all == YES)
+	if (*(options->stop_all) == YES)
 	{
 		pthread_mutex_unlock(options->display);
 		return ;
@@ -73,16 +71,13 @@ void	ft_print_status(int status, t_options *options)
 	ft_print_status_end(status);
 	
 	if (status == DIE)
-		options->stop_all = YES;
+		*(options->stop_all) = YES;
 	if (options->eat_max != UNSET && status == EAT)
 	{
 		eat_num = options->eat_num;
 		eat_num[options->identifier - 1]++;
 		if (check_enough_eat(options->num_philo, eat_num, options->eat_max) == YES)
-		{
-			printf("enough\n");
-			options->stop_all = YES;
-		}
+			*(options->stop_all) = YES;
 	}
 	if (pthread_mutex_unlock(options->display))
 		printf("unlock display failed\n");

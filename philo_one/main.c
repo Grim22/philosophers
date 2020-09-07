@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:13:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:27:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,17 @@ int     main(int argc, char **argv)
 	t_options		**options; // tableau de t_options* (arguments envoyés aux threads)
 	int				num_philo;
 	int				*eat_num;
+	int				stop_all;
 	
 	if (check_args(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
 	num_philo = ft_atoi(argv[1]);
-	
+	stop_all = NO;
 	if (init_mutexes(num_philo, &forks, &display) == EXIT_FAILURE
 		|| malloc_options(&options, num_philo, &eat_num) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	fill_options_args(options, argc, argv, eat_num);
+	fill_options_args(options, argc, argv, eat_num, &stop_all);
 	fill_options_mutexes(options, &display, forks);
 	if (create_threads(&threads_philo, options, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

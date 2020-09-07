@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:13:04 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:32:41 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	fill_args(t_options *options, int argc, char **argv, int identifier)
 	options->t_to_eat = ft_atoi(argv[3]);
 	options->t_to_sleep = ft_atoi(argv[4]);
 	options->died = NO;
-	options->stop_all = NO;
 	options->latest_meal = 0;
 	fill_eat_num(options->eat_num, options->num_philo);
 	if (argc == 6)
@@ -42,7 +41,7 @@ void	fill_args(t_options *options, int argc, char **argv, int identifier)
 		options->eat_max = UNSET;
 }
 
-void	fill_options_args(t_options **options, int argc, char **argv, int *eat_num)
+void	fill_options_args(t_options **options, int argc, char **argv, int *eat_num, int *stop_all)
 {
 	int i;
 	long int time;
@@ -53,6 +52,7 @@ void	fill_options_args(t_options **options, int argc, char **argv, int *eat_num)
 	{
 		options[i]->timestamp_start = time;
 		options[i]->eat_num = eat_num;
+		options[i]->stop_all = stop_all;
 		fill_args(options[i], argc, argv, i);
 		i++;
 	}
