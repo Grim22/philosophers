@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/04 12:36:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:16:01 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_eat(t_options *options)
 		return (EXIT_FAILURE);
 	options->latest_meal = ft_get_mstime();
 	ft_print_status(EAT, options);
-	options->eat_num++;
+	// options->eat_num++;
 	// check_eat_number(count_eat, options);
 	if (options->stop_all == YES)
 	{

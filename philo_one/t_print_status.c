@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 11:23:15 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/07 15:07:45 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,29 @@ void	ft_print_status_end(int status)
 		ft_putendl_fd(" died", 1);
 }
 
+int		check_enough_eat(int num, int *eat_num, int max)
+{
+	int i;
+
+	i = 0;
+	while (i < num)
+	{
+		// printf("max: %d\n", max);
+		printf("index: %d, num: %d\n", i, eat_num[i]);
+		if (eat_num[i] < max)
+			return (NO);
+		i++;
+	}
+	return (YES);
+}
+
 void	ft_print_status(int status, t_options *options)
 {
 	char *timestamp;
 	char *identifier;
 	long int elapsed;
 	long int current_time;
+	int	*eat_num;
 	
 	if (options->stop_all == YES)
 		return ;
@@ -39,18 +56,14 @@ void	ft_print_status(int status, t_options *options)
 	if (pthread_mutex_lock(options->display))
 		printf("lock display failed\n");
 	
-	current_time = ft_get_mstime();
-	elapsed = current_time - options->timestamp_start;
-	timestamp = ft_itoa(elapsed);
-	
-	// usleep(1); // pour éviter qu'un thread aille "trop vite" et affiche du contenu alors que le jeu est déja terminé
 	if (options->stop_all == YES)
 	{
 		pthread_mutex_unlock(options->display);
-		free(timestamp);
 		return ;
 	}
-	
+	current_time = ft_get_mstime();
+	elapsed = current_time - options->timestamp_start;
+	timestamp = ft_itoa(elapsed);
 	ft_putstr_fd(timestamp, 1);
 	free(timestamp);
 	ft_putstr_fd(" ", 1);
@@ -58,7 +71,19 @@ void	ft_print_status(int status, t_options *options)
 	ft_putstr_fd(identifier, 1);
 	free(identifier);
 	ft_print_status_end(status);
-
+	
+	if (status == DIE)
+		options->stop_all = YES;
+	if (options->eat_max != UNSET && status == EAT)
+	{
+		eat_num = options->eat_num;
+		eat_num[options->identifier - 1]++;
+		if (check_enough_eat(options->num_philo, eat_num, options->eat_max) == YES)
+		{
+			printf("enough\n");
+			options->stop_all = YES;
+		}
+	}
 	if (pthread_mutex_unlock(options->display))
 		printf("unlock display failed\n");
 }
