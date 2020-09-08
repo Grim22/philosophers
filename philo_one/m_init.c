@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/08 15:37:50 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/08 17:26:19 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,24 @@ int	create_threads(pthread_t **thread, t_options **options, int num_philo)
 	i = 0;
 	while (i < num_philo)
 	{
-		// if (i % 2 == 0)
-			if (pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]))
-			{
-				ft_putendl_fd("pthread_create failed", 2);
-				return (EXIT_FAILURE);
-			}
-		i++;
+		if (pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]))
+		{
+			ft_putendl_fd("pthread_create failed", 2);
+			return (EXIT_FAILURE);
+		}
+		i = i + 2;
 	}
-	// i = 0;
-	// while (i < num_philo)
-	// {
-	// 	if (i % 2 == 1)
-	// 		if (pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]))
-	// 		{
-	// 			ft_putendl_fd("pthread_create failed", 2);
-	// 			return (EXIT_FAILURE);
-	// 		}
-	// 	i++;
-	// }
+	usleep(500 * num_philo); // pour optimiser le jeu, on lance en décallé les philo paires et impairs (plus il y a de philo plus il faut que le décalage soit grand)
+	i = 1;
+	while (i < num_philo)
+	{
+		if (pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]))
+		{
+			ft_putendl_fd("pthread_create failed", 2);
+			return (EXIT_FAILURE);
+		}
+		i = i + 2;
+	}
 	return (EXIT_SUCCESS);
 }
 

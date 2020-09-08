@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:29:47 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/08 16:42:00 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void	*death_alarm(void *void_options)
 		if (elapsed_time > max)
 		{
 			ft_print_status(DIE, options);
-			// options->died = YES;
 			return (NULL);
 		}
-		// usleep(1); // 1 ms (pas plus de 10ms entre la mort et l'affichage de la mort)
 	}
+	usleep(1); // a garder ?
 	return(NULL);
 }
 
