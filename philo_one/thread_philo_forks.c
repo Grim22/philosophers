@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 18:04:34 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/08 17:57:27 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 09:29:27 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ int		unlock_forks(t_options *options)
 int		lock_forks(t_options *options)
 {
 	if (pthread_mutex_lock(options->fork_l) == EXIT_FAILURE)
+	{
+		ft_putendl_fd("lock fork failed", 2);
 		return (EXIT_FAILURE);
+	}
 	ft_print_status(FORK, options);
 	if (pthread_mutex_lock(options->fork_r) == EXIT_FAILURE)
+	{
+		ft_putendl_fd("lock fork failed", 2);
 		return (EXIT_FAILURE);
+	}
 	ft_print_status(FORK, options);
 	return (EXIT_SUCCESS);
 }
