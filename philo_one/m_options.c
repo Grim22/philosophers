@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 09:26:34 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:14:14 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	fill_args(t_options *options, char **argv, int identifier)
 		options->eat_max = UNSET;
 }
 
-void	fill_options_args(t_options **options, char **argv, int *eat_num, int *stop_all)
+void	fill_options_args(t_options **options, char **argv, t_input *input)
 {
 	int i;
 	long int time;
@@ -38,8 +38,8 @@ void	fill_options_args(t_options **options, char **argv, int *eat_num, int *stop
 	while (options[i])
 	{
 		options[i]->timestamp_start = time;
-		options[i]->eat_num = eat_num;
-		options[i]->stop_all = stop_all;
+		options[i]->eat_num = input->eat_num;
+		options[i]->stop_all = &input->stop_all;
 		fill_args(options[i], argv, i);
 		i++;
 	}
@@ -68,7 +68,7 @@ int		malloc_options(t_options ***options, int num)
 	return (EXIT_SUCCESS);
 }
 
-void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork)
+void	fill_options_mutexes(t_options **options, t_input *input)
 {
 	int i;
 
@@ -76,11 +76,11 @@ void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread
 	while (options[i])
 	{
 		if (options[i + 1] == NULL)
-			options[i]->fork_r = &fork[0];
+			options[i]->fork_r = &input->forks[0];
 		else
-			options[i]->fork_r = &fork[i + 1];
-		options[i]->fork_l = &fork[i];
-		options[i]->display = display;
+			options[i]->fork_r = &input->forks[i + 1];
+		options[i]->fork_l = &input->forks[i];
+		options[i]->display = &input->display;
 		i++;
 	}
 }

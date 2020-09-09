@@ -6,21 +6,21 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/08 17:26:19 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:12:18 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int	create_threads(pthread_t **thread, t_options **options, int num_philo)
+int	create_threads(t_input *input, t_options **options, int num_philo)
 {
 	int i;
 	
-	*thread = malloc(num_philo * sizeof(pthread_t));
+	input->threads_philo = malloc(num_philo * sizeof(pthread_t));
 	i = 0;
 	while (i < num_philo)
 	{
-		if (pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]))
+		if (pthread_create(&input->threads_philo[i], NULL, &cycle, (void*)options[i]))
 		{
 			ft_putendl_fd("pthread_create failed", 2);
 			return (EXIT_FAILURE);
@@ -31,7 +31,7 @@ int	create_threads(pthread_t **thread, t_options **options, int num_philo)
 	i = 1;
 	while (i < num_philo)
 	{
-		if (pthread_create(&thread[0][i], NULL, &cycle, (void*)options[i]))
+		if (pthread_create(&input->threads_philo[i], NULL, &cycle, (void*)options[i]))
 		{
 			ft_putendl_fd("pthread_create failed", 2);
 			return (EXIT_FAILURE);
@@ -41,12 +41,12 @@ int	create_threads(pthread_t **thread, t_options **options, int num_philo)
 	return (EXIT_SUCCESS);
 }
 
-int	init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
+int	init_mutexes(int num, t_input *input)
 {
 	int i;
 
-    pthread_mutex_init(display, NULL);
-	if (!(*fork = malloc(num * sizeof(pthread_mutex_t))))
+    pthread_mutex_init(&input->display, NULL);
+	if (!(input->forks = malloc(num * sizeof(pthread_mutex_t))))
 	{
 		ft_putendl_fd("malloc failed", 2);
 		return (EXIT_FAILURE);
@@ -54,7 +54,7 @@ int	init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display)
 	i = 0;
 	while (i < num)
 	{
-		if (pthread_mutex_init(&fork[0][i], NULL))
+		if (pthread_mutex_init(&input->forks[i], NULL))
 		{
 			ft_putendl_fd("mutex_init failed", 2);
 			return (EXIT_FAILURE);
@@ -76,14 +76,14 @@ void	fill_eat_num(int *eat_num, int num)
 	}
 }
 
-int	fill_vars(int num, int **eat_num, int *stop_all)
+int	fill_vars(int num, t_input *input)
 {
-	if (!(*eat_num = malloc(num * sizeof(int))))
+	if (!(input->eat_num = malloc(num * sizeof(int))))
 	{
 		ft_putendl_fd("malloc failed", 2);
 		return (EXIT_FAILURE);
 	}
-	fill_eat_num(*eat_num, num);
-	*stop_all = NO;
+	fill_eat_num(input->eat_num, num);
+	input->stop_all = NO;
 	return (EXIT_SUCCESS);
 }

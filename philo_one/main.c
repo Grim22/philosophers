@@ -6,16 +6,16 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:53:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:10:54 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int		check_args(int argc, char **argv)
+int	check_args(int argc, char **argv)
 {
 	int i;
-	
+
 	if (argc < 5 || argc > 6)
 	{
 		ft_putendl_fd("wrong number of args", 2);
@@ -39,31 +39,25 @@ int		check_args(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-
-int     main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	pthread_t		*threads_philo; // tableau de pthreads: un thread par philo
-	pthread_mutex_t	*forks; // tableau de mutex: chacun pour une fourchette
-	pthread_mutex_t	display; // mutex pour l'affichage à l'écran des statuts
-	t_options		**options; // tableau de t_options* (arguments envoyés aux threads)
+	t_options		**options;
 	int				num_philo;
-	int				*eat_num;
-	int				stop_all;
-	
+	t_input			*input;
+
+	input = malloc(sizeof(t_input));
 	if (check_args(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-
 	num_philo = ft_atoi(argv[1]);
-	if (init_mutexes(num_philo, &forks, &display) == EXIT_FAILURE
+	if (init_mutexes(num_philo, input) == EXIT_FAILURE
 		|| malloc_options(&options, num_philo) == EXIT_FAILURE
-		|| fill_vars(num_philo, &eat_num, &stop_all) == EXIT_FAILURE)
+		|| fill_vars(num_philo, input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	fill_options_args(options, argv, eat_num, &stop_all);
-	fill_options_mutexes(options, &display, forks);
-	
-	if (create_threads(&threads_philo, options, num_philo) == EXIT_FAILURE
-	|| join_threads(num_philo, threads_philo) == EXIT_FAILURE
-	||	destroy_mutexes(num_philo, forks, display) == EXIT_FAILURE)
+	fill_options_args(options, argv, input);
+	fill_options_mutexes(options, input);
+	if (create_threads(input, options, num_philo) == EXIT_FAILURE
+	|| join_threads(num_philo, input->threads_philo) == EXIT_FAILURE
+	|| destroy_mutexes(num_philo, input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	free_stuff(options, eat_num);
+	free_stuff(options, input);
 }

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 17:17:48 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:11:09 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ typedef struct  s_options
     pthread_mutex_t *display; // pointeur sur le mutex qui gère l'affichage à l'écran
 }               t_options;
 
+typedef struct  s_input
+{
+    pthread_t       *threads_philo;
+    pthread_mutex_t *forks;
+    pthread_mutex_t display;
+    int             *eat_num;
+    int             stop_all;
+}               t_input;
+
 enum	e_state
 {
 	FORK,
@@ -51,14 +60,14 @@ enum	e_state
 ** ---------------------- Philo prototypes ---------------------
 */
 
-int     init_mutexes(int num, pthread_mutex_t **fork, pthread_mutex_t *display);
-int     fill_vars(int num, int **eat_num, int *stop_all);
-int     create_threads(pthread_t **thread, t_options **options, int num_philo);
+int     init_mutexes(int num, t_input *input);
+int     fill_vars(int num, t_input *input);
+int     create_threads(t_input *input, t_options **options, int num_philo);
 int     create_death_thread(t_options *options);
 
-void	fill_options_args(t_options **options, char **argv, int *eat_num, int *stop_all);
+void	fill_options_args(t_options **options, char **argv, t_input *input);
 int     malloc_options(t_options ***options, int num);
-void	fill_options_mutexes(t_options **options, pthread_mutex_t *display, pthread_mutex_t *fork);
+void	fill_options_mutexes(t_options **options, t_input *input);
 
 long    ft_get_mstime();
 
@@ -69,8 +78,8 @@ int     ft_print_status(int status, t_options *options);
 int		lock_forks(t_options *options);
 int		unlock_forks(t_options *options);
 
-int     destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t lock);
-void	free_stuff(t_options **options, int *eat_num);
+int     destroy_mutexes(int num, t_input *input);
+void	free_stuff(t_options **options, t_input *input);
 int     join_threads(int num, pthread_t *threads);
 
 /*

@@ -6,28 +6,28 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/07 15:54:57 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:08:40 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int		destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t display)
+int		destroy_mutexes(int num, t_input *input)
 {
 	int i;
 
 	i = 0;
 	while (i < num)
 	{
-		if (pthread_mutex_destroy(&forks[i]))
+		if (pthread_mutex_destroy(&input->forks[i]))
 		{
 			ft_putendl_fd("pthread_mutex_destroy fork failed", 2);
 			return (EXIT_FAILURE);
 		}
 		i++;
 	}
-	free(forks);
-	if (pthread_mutex_destroy(&display))
+	free(input->forks);
+	if (pthread_mutex_destroy(&input->display))
 	{
 		ft_putendl_fd("pthread_mutex_destroy display failed", 2);
 		return (EXIT_FAILURE);
@@ -35,11 +35,12 @@ int		destroy_mutexes(int num, pthread_mutex_t *forks, pthread_mutex_t display)
 	return (EXIT_SUCCESS);
 }
 
-void	free_stuff(t_options **options, int *eat_num)
+void	free_stuff(t_options **options, t_input *input)
 {
 	int i;
 
-	free(eat_num);
+	free(input->eat_num);
+	free(input);
 	i = 0;
 	while (options[i])
 	{
