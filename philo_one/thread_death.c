@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 09:27:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 10:04:44 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	*death_alarm(void *void_options)
 			ft_print_status(DIE, options);
 			return (NULL);
 		}
+		usleep(100); // a garder pour moins charger le processeur ?
 	}
-	usleep(1); // a garder pour moins charger le processeur ?
 	return(NULL);
 }
 
