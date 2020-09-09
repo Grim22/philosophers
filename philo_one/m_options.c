@@ -6,13 +6,11 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:44:36 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:56:07 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
-
-
 
 void	fill_args(t_options *options, char **argv, int identifier)
 {
@@ -30,9 +28,9 @@ void	fill_args(t_options *options, char **argv, int identifier)
 
 void	fill_options_args(t_options **options, char **argv, t_input *input)
 {
-	int i;
-	long int time;
-	
+	int		i;
+	long	time;
+
 	time = ft_get_mstime();
 	i = 0;
 	while (options[i])
@@ -48,7 +46,7 @@ void	fill_options_args(t_options **options, char **argv, t_input *input)
 int		malloc_options(t_options ***options, int num)
 {
 	int i;
-	
+
 	i = 0;
 	if (!(*options = malloc((num + 1) * sizeof(t_options*))))
 	{
@@ -85,9 +83,9 @@ void	fill_options_mutexes(t_options **options, t_input *input)
 	}
 }
 
-int		init_options(t_options ***options, char **argv, t_input *input, int num_philo)
+int		init_options(t_options ***options, char **argv, t_input *input, int num)
 {
-	if (malloc_options(options, num_philo) == EXIT_FAILURE)
+	if (malloc_options(options, num) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	fill_options_args(*options, argv, input);
 	fill_options_mutexes(*options, input);
