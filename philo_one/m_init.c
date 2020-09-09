@@ -6,21 +6,21 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:21:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:34:38 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int	create_threads(t_input *input, t_options **options, int num_philo)
+int		create_threads(t_input *in, t_options **options, int num_philo)
 {
 	int i;
-	
-	input->threads_philo = malloc(num_philo * sizeof(pthread_t));
+
+	in->threads_philo = malloc(num_philo * sizeof(pthread_t));
 	i = 0;
 	while (i < num_philo)
 	{
-		if (pthread_create(&input->threads_philo[i], NULL, &cycle, (void*)options[i]))
+		if (pthread_create(&in->threads_philo[i], NULL, &cycle, options[i]))
 		{
 			ft_putendl_fd("pthread_create failed", 2);
 			return (EXIT_FAILURE);
@@ -31,7 +31,7 @@ int	create_threads(t_input *input, t_options **options, int num_philo)
 	i = 1;
 	while (i < num_philo)
 	{
-		if (pthread_create(&input->threads_philo[i], NULL, &cycle, (void*)options[i]))
+		if (pthread_create(&in->threads_philo[i], NULL, &cycle, options[i]))
 		{
 			ft_putendl_fd("pthread_create failed", 2);
 			return (EXIT_FAILURE);
@@ -41,11 +41,11 @@ int	create_threads(t_input *input, t_options **options, int num_philo)
 	return (EXIT_SUCCESS);
 }
 
-int	init_mutexes(int num, t_input *input)
+int		init_mutexes(int num, t_input *input)
 {
 	int i;
 
-    pthread_mutex_init(&input->display, NULL);
+	pthread_mutex_init(&input->display, NULL);
 	if (!(input->forks = malloc(num * sizeof(pthread_mutex_t))))
 	{
 		ft_putendl_fd("malloc failed", 2);
@@ -76,7 +76,7 @@ void	fill_eat_num(int *eat_num, int num)
 	}
 }
 
-int	fill_vars(int num, t_input *input)
+int		fill_vars(int num, t_input *input)
 {
 	if (!(input->eat_num = malloc(num * sizeof(int))))
 	{
@@ -88,11 +88,11 @@ int	fill_vars(int num, t_input *input)
 	return (EXIT_SUCCESS);
 }
 
-int	init(int num_philo, t_options **options, t_options *input)
+int		init(int num_philo, t_options ***options, t_input *input)
 {
 	if (init_mutexes(num_philo, input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (malloc_options(&options, num_philo) == EXIT_FAILURE)
+	if (malloc_options(options, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (fill_vars(num_philo, input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
