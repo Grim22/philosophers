@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:11:09 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:21:39 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ enum	e_state
 ** ---------------------- Philo prototypes ---------------------
 */
 
+int     init(int num_philo, t_options **options, t_options *input);
 int     init_mutexes(int num, t_input *input);
 int     fill_vars(int num, t_input *input);
 int     create_threads(t_input *input, t_options **options, int num_philo);

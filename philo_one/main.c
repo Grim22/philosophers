@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:10:54 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:23:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ int	main(int argc, char **argv)
 	int				num_philo;
 	t_input			*input;
 
-	input = malloc(sizeof(t_input));
 	if (check_args(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	input = malloc(sizeof(t_input));
 	num_philo = ft_atoi(argv[1]);
-	if (init_mutexes(num_philo, input) == EXIT_FAILURE
-		|| malloc_options(&options, num_philo) == EXIT_FAILURE
-		|| fill_vars(num_philo, input) == EXIT_FAILURE)
+	if (init(num_philo, options, input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	fill_options_args(options, argv, input);
 	fill_options_mutexes(options, input);
