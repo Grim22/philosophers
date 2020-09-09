@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/08 10:36:11 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 15:44:34 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	*cycle(void *void_options)
 	t_options	*options;
 	
 	options = (t_options*)void_options;
-	if (create_death_thread(options) == EXIT_FAILURE)
-		return (NULL);
 	while (*(options->stop_all) == NO)
 	{
 		if (ft_eat(options) == EXIT_FAILURE)

@@ -6,37 +6,53 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 10:04:44 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 15:44:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-void	*death_alarm(void *void_options)
+int	check_death(t_options *options)
 {
 	int	max;
-	t_options *options;
 	int elapsed_time;
 	
-	options = (t_options*)void_options;
 	max = options->t_to_die;
-	while (*(options->stop_all) == NO) // pour que le thread soit arrêté en cas de fin du programme pour cause de enough_eat
+	if (options->latest_meal == UNSET)
+		elapsed_time = ft_get_mstime() - options->timestamp_start;
+	else
+		elapsed_time = ft_get_mstime() - options->latest_meal;
+	// printf("id: %d, elapsed: %d\n", options->identifier, elapsed_time);
+	if (elapsed_time > max)
 	{
-		if (options->latest_meal == UNSET)
-			elapsed_time = ft_get_mstime() - options->timestamp_start;
-		else
-			elapsed_time = ft_get_mstime() - options->latest_meal;
-		if (elapsed_time > max)
-		{
-			ft_print_status(DIE, options);
-			return (NULL);
-		}
-		usleep(100); // a garder pour moins charger le processeur ?
+		ft_print_status(DIE, options);
+		return (YES);
 	}
-	return(NULL);
+	else
+		return(NO);
 }
 
-int     create_death_thread(t_options *options)
+void	*death_alarm(void *void_options)
+{
+	int i;
+	t_options **options;
+
+	options = (t_options**)void_options;
+	while (*(options[0]->stop_all) == NO)
+	{
+		i = 0;
+		while (options[i])
+		{
+			if (check_death(options[i]) == YES)
+				return (NULL);
+			i++;
+		}
+		usleep(1000);
+	}
+	return (NULL);
+}
+
+int	create_death_thread(t_options **options)
 {
 	pthread_t death_thread;
 

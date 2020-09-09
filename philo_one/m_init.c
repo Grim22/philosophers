@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:43:27 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 15:42:39 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int		create_threads(t_input *in, t_options **options, int num_philo)
 		}
 		i = i + 2;
 	}
-	usleep(500 * num_philo); // pour optimiser le jeu, on lance en décallé les philo paires et impairs (plus il y a de philo plus il faut que le décalage soit grand)
+	if (num_philo <= 10)
+		usleep(5000); // pour optimiser le jeu, on lance en décallé les philo paires et impairs (plus il y a de philo plus il faut que le décalage soit grand)
+	else
+		usleep(5000);
 	i = 1;
 	while (i < num_philo)
 	{
@@ -38,6 +41,7 @@ int		create_threads(t_input *in, t_options **options, int num_philo)
 		}
 		i = i + 2;
 	}
+	create_death_thread(options);
 	return (EXIT_SUCCESS);
 }
 
