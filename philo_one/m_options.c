@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:14:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:44:36 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,13 @@ void	fill_options_mutexes(t_options **options, t_input *input)
 		options[i]->display = &input->display;
 		i++;
 	}
+}
+
+int		init_options(t_options ***options, char **argv, t_input *input, int num_philo)
+{
+	if (malloc_options(options, num_philo) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	fill_options_args(*options, argv, input);
+	fill_options_mutexes(*options, input);
+	return (EXIT_SUCCESS);
 }

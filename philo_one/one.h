@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:34:21 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:45:24 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ enum	e_state
 ** ---------------------- Philo prototypes ---------------------
 */
 
-int     init(int num_philo, t_options ***options, t_input *input);
+int     init_input(int num_philo, t_input **input);
 int     init_mutexes(int num, t_input *input);
 int     fill_vars(int num, t_input *input);
 int     create_threads(t_input *input, t_options **options, int num_philo);
 int     create_death_thread(t_options *options);
 
+int		init_options(t_options ***options, char **argv, t_input *input, int num_philo);
 void	fill_options_args(t_options **options, char **argv, t_input *input);
 int     malloc_options(t_options ***options, int num);
 void	fill_options_mutexes(t_options **options, t_input *input);

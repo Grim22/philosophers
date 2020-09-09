@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:34:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 11:43:27 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,12 @@ int		fill_vars(int num, t_input *input)
 	return (EXIT_SUCCESS);
 }
 
-int		init(int num_philo, t_options ***options, t_input *input)
+int		init_input(int num_philo, t_input **input)
 {
-	if (init_mutexes(num_philo, input) == EXIT_FAILURE)
+	*input = malloc(sizeof(t_input));
+	if (init_mutexes(num_philo, *input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (malloc_options(options, num_philo) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (fill_vars(num_philo, input) == EXIT_FAILURE)
+	if (fill_vars(num_philo, *input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
