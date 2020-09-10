@@ -6,36 +6,35 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 15:44:51 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 17:07:40 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int	check_death(t_options *options)
+int		check_death(t_options *options)
 {
 	int	max;
 	int elapsed_time;
-	
+
 	max = options->t_to_die;
 	if (options->latest_meal == UNSET)
 		elapsed_time = ft_get_mstime() - options->timestamp_start;
 	else
 		elapsed_time = ft_get_mstime() - options->latest_meal;
-	// printf("id: %d, elapsed: %d\n", options->identifier, elapsed_time);
 	if (elapsed_time > max)
 	{
 		ft_print_status(DIE, options);
 		return (YES);
 	}
 	else
-		return(NO);
+		return (NO);
 }
 
 void	*death_alarm(void *void_options)
 {
-	int i;
-	t_options **options;
+	int			i;
+	t_options	**options;
 
 	options = (t_options**)void_options;
 	while (*(options[0]->stop_all) == NO)
@@ -52,7 +51,7 @@ void	*death_alarm(void *void_options)
 	return (NULL);
 }
 
-int	create_death_thread(t_options **options)
+int		create_death_thread(t_options **options)
 {
 	pthread_t death_thread;
 

@@ -6,44 +6,11 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 16:07:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 17:33:40 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
-
-int		create_threads(t_input *in, t_options **options, int num_philo)
-{
-	int i;
-
-	in->threads_philo = malloc(num_philo * sizeof(pthread_t));
-	i = 0;
-	while (i < num_philo)
-	{
-		if (pthread_create(&in->threads_philo[i], NULL, &cycle, options[i]))
-		{
-			ft_putendl_fd("pthread_create failed", 2);
-			return (EXIT_FAILURE);
-		}
-		i = i + 2;
-	}
-	if (num_philo <= 10)
-		usleep(2000); // pour optimiser le jeu, on lance en décallé les philo paires et impairs (plus il y a de philo plus il faut que le décalage soit grand)
-	else
-		usleep(5000);
-	i = 1;
-	while (i < num_philo)
-	{
-		if (pthread_create(&in->threads_philo[i], NULL, &cycle, options[i]))
-		{
-			ft_putendl_fd("pthread_create failed", 2);
-			return (EXIT_FAILURE);
-		}
-		i = i + 2;
-	}
-	create_death_thread(options);
-	return (EXIT_SUCCESS);
-}
 
 int		init_mutexes(int num, t_input *input)
 {

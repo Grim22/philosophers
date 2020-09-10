@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 16:00:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/01 16:01:50 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/09 17:29:35 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -20,7 +20,7 @@ int ft_isdigit(int c)
 		return (0);
 }
 
-int ft_isdigit_str(char *str)
+int	ft_isdigit_str(char *str)
 {
 	int i;
 
