@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 17:36:12 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/10 10:30:17 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ enum	e_state
 # define YES 1
 # define NO 0
 # define ODD 0
-# define EVEN 0
+# define EVEN 1
 
 /*
 ** ---------------------- Main prototypes ---------------------
