@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 11:44:48 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/10 11:48:20 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,26 @@ int	check_args(int argc, char **argv)
 	{
 		if (ft_isdigit_str(argv[i]) == 0)
 		{
-			ft_putendl_fd("non digit argument", 2);
+			ft_putendl_fd("non digit or zero argument", 2);
 			return (EXIT_FAILURE);
 		}
 		if (ft_strlen(argv[i]) > 9)
 		{
-			ft_putendl_fd("too big number", 2); // facon de protéger les ft_atoi
+			ft_putendl_fd("too big number", 2);
 			return (EXIT_FAILURE);
 		}
 		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	check_num_philo(int *num, char *argv1)
+{
+	*num = ft_atoi(argv1);
+	if (*num == 1)
+	{
+		ft_putendl_fd("philo need to be at least two to play", 2);
+		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -47,7 +58,8 @@ int	main(int argc, char **argv)
 
 	if (check_args(argc, argv) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	num_philo = ft_atoi(argv[1]);
+	if (check_num_philo(&num_philo, argv[1]) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (init_input(num_philo, &input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (init_options(&options, argv, input, num_philo) == EXIT_FAILURE)

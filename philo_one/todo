@@ -4,5 +4,3 @@ faire un check que chaque argument soit bien un entier positif (strictement ?)
 proteger les atoi contre des arguments trop grands
 
 optimiser les usleep (cf https://stackoverflow.com/questions/12777254/time-delay-in-c-usleep/12777296#12777296):
-
-print les status au sein de detached threads ?
