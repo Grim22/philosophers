@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/10 10:30:17 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 16:34:19 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct	s_options
 	long int		latest_meal; //  timestamp du dernier repas
 	long int		timestamp_start; // timestamp debut simulation
 	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
+	int				count_right; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N-1.
+	int				count_left; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N+1.
+	// permet de s'assurer que N-1 et N+1 aient bien pris un repas avant que ne N se resserve
 	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
 	pthread_mutex_t	*fork_l; // fourchette gauche: pointeur sur une des fourchettes
 	pthread_mutex_t	*fork_r; // fourchette à droite: pointeur sur une des fourchettes

@@ -6,14 +6,48 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 17:04:00 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 16:39:14 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
+int		check_priority(t_options *options)
+{
+	int right;
+	int left;
+
+	if (options->latest_meal == UNSET)
+		return (YES);
+	right = options->identifier + 1;
+	left = options->identifier - 1;
+	if (options->identifier == 1)
+		left = options->num_philo;
+	if (options->identifier == options->num_philo)
+		right = 1;
+	right = options->eat_num[right - 1];
+	left = options->eat_num[left - 1];
+	// if (options->identifier == 1)
+	// 	printf("id: %d, right: %d vs %d, left: %d vs %d\n", options->identifier, right, options->count_right, left, options->count_left);
+	if (options->count_left < left &&
+	options->count_right < right)
+		return (YES);
+	else
+	{
+		// printf("id: %d: BLOCKED\n", options->identifier);
+		return (NO);
+	}
+}
+
+
 int		ft_eat(t_options *options)
 {
+	while (options->stop_all == NO)
+	{
+		if (check_priority(options) == YES)
+			break ;
+		usleep(100);
+	}
 	if (lock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	options->latest_meal = ft_get_mstime();

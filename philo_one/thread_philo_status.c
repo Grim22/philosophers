@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 17:12:34 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 16:32:13 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,25 @@ void	ft_print_identifier(t_options *options)
 	free(identifier);
 }
 
+void	init_priority(t_options *options)
+{
+	int right;
+	int left;
+	int *eat_num;
+	
+	eat_num = options->eat_num;
+	right = options->identifier + 1;
+	left = options->identifier - 1;
+	if (options->identifier == 1)
+		left = options->num_philo;
+	if (options->identifier == options->num_philo)
+		right = 1;
+	options->count_right = eat_num[right - 1];
+	options->count_left = eat_num[left - 1];
+	// if (options->identifier == 1)
+	// 	printf("id: %d, count_r: %d, count_l : %d\n", options->identifier, options->count_right, options->count_left);
+}
+
 int		ft_print_status(int status, t_options *options)
 {
 	if (*(options->stop_all) == YES)
@@ -68,6 +87,8 @@ int		ft_print_status(int status, t_options *options)
 	ft_print_identifier(options);
 	ft_print_status_end(status);
 	check_stop(options, status);
+	if (status == EAT)
+		init_priority(options);
 	if (pthread_mutex_unlock(options->display))
 	{
 		ft_putendl_fd("unlock display failed", 1);
