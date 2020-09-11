@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 10:59:56 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 11:37:52 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int		destroy_mutexes(t_input *input)
+int		destroy_sem(t_input *input)
 {
 	if (sem_close(input->sem))
 	{
@@ -24,9 +24,14 @@ int		destroy_mutexes(t_input *input)
 		ft_putendl_fd("sem_unlink failed", 2);
 		return (EXIT_FAILURE);
 	}
-	if (pthread_mutex_destroy(&input->display))
+	if (sem_close(input->display))
 	{
-		ft_putendl_fd("pthread_mutex_destroy display failed", 2);
+		ft_putendl_fd("sem_close failed", 2);
+		return (EXIT_FAILURE);
+	}
+	if (sem_unlink("display"))
+	{
+		ft_putendl_fd("sem_unlink failed", 2);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

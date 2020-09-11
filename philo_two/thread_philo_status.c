@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 17:12:34 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 11:37:08 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,23 @@ int		ft_print_status(int status, t_options *options)
 {
 	if (*(options->stop_all) == YES)
 		return (EXIT_SUCCESS);
-	if (pthread_mutex_lock(options->display) == EXIT_FAILURE)
+	if (sem_wait(options->display))
 	{
-		ft_putendl_fd("lock display failed", 1);
+		ft_putendl_fd("wait display failed", 1);
 		return (EXIT_FAILURE);
 	}
 	if (*(options->stop_all) == YES)
 	{
-		if (pthread_mutex_unlock(options->display) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		sem_post(options->display);
 		return (EXIT_SUCCESS);
 	}
 	ft_print_timestamp(options);
 	ft_print_identifier(options);
 	ft_print_status_end(status);
 	check_stop(options, status);
-	if (pthread_mutex_unlock(options->display))
+	if (sem_post(options->display))
 	{
-		ft_putendl_fd("unlock display failed", 1);
+		ft_putendl_fd("post display failed", 1);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

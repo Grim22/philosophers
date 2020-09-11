@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 10:46:32 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 11:39:06 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,6 @@ int		malloc_options(t_options ***options, int num)
 	return (EXIT_SUCCESS);
 }
 
-void	fill_options_mutexes(t_options **options, t_input *input)
-{
-	int i;
-
-	i = 0;
-	while (options[i])
-	{
-		// if (options[i + 1] == NULL)
-		// 	options[i]->fork_r = &input->forks[0];
-		// else
-		// 	options[i]->fork_r = &input->forks[i + 1];
-		// options[i]->fork_l = &input->forks[i];
-		options[i]->display = &input->display;
-		i++;
-	}
-}
 
 void	fill_options_sem(t_options **options, t_input *input)
 {
@@ -91,6 +75,7 @@ void	fill_options_sem(t_options **options, t_input *input)
 	while (options[i])
 	{
 		options[i]->sem = input->sem;
+		options[i]->display = input->display;
 		i++;
 	}
 }
@@ -101,6 +86,5 @@ int		init_options(t_options ***options, char **argv, t_input *input, int num)
 		return (EXIT_FAILURE);
 	fill_options_args(*options, argv, input);
 	fill_options_sem(*options, input);
-	fill_options_mutexes(*options, input);
 	return (EXIT_SUCCESS);
 }
