@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 16:34:19 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 16:46:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int		ft_print_status(int status, t_options *options);
 void	check_stop(t_options *options, int status);
 
 long	ft_get_mstime();
+int		get_right_index(t_options *options);
+int		get_left_index(t_options *options);
 
 /*
 ** ---------------------- Libft prototypes ---------------------

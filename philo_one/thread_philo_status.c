@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 16:32:13 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 17:04:48 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,11 @@ void	ft_print_identifier(t_options *options)
 
 void	init_priority(t_options *options)
 {
-	int right;
-	int left;
 	int *eat_num;
 	
 	eat_num = options->eat_num;
-	right = options->identifier + 1;
-	left = options->identifier - 1;
-	if (options->identifier == 1)
-		left = options->num_philo;
-	if (options->identifier == options->num_philo)
-		right = 1;
-	options->count_right = eat_num[right - 1];
-	options->count_left = eat_num[left - 1];
-	// if (options->identifier == 1)
-	// 	printf("id: %d, count_r: %d, count_l : %d\n", options->identifier, options->count_right, options->count_left);
+	options->count_right = eat_num[get_right_index(options)];
+	options->count_left = eat_num[get_left_index(options)];
 }
 
 int		ft_print_status(int status, t_options *options)
