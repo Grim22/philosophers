@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 10:31:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/11 11:00:06 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h> //malloc
 # include <string.h> // memset
 # include "stdio.h" // printf
+#include <fcntl.h> // for sem_open flags
+#include <sys/stat.h> // for sem_open modes
 
 typedef struct	s_options
 {
@@ -33,8 +35,7 @@ typedef struct	s_options
 	long int		timestamp_start; // timestamp debut simulation
 	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
 	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
-	pthread_mutex_t	*fork_l; // fourchette gauche: pointeur sur une des fourchettes
-	pthread_mutex_t	*fork_r; // fourchette à droite: pointeur sur une des fourchettes
+	sem_t			*sem;
 	pthread_mutex_t	*display; // pointeur sur le mutex qui gère l'affichage à l'écran
 }				t_options;
 
@@ -72,7 +73,7 @@ int		init_options(t_options ***opt, char **argv, t_input *in, int num);
 int		create_threads(t_input *input, t_options **options, int num_philo);
 int		create_death_thread(t_options **options);
 
-int		destroy_mutexes(int num, t_input *input);
+int		destroy_mutexes(t_input *input);
 void	free_stuff(t_options **options, t_input *input);
 int		join_threads(int num, pthread_t *threads);
 
