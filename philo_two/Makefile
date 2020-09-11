@@ -3,7 +3,7 @@ NAME	= philo_two
 
 # ---------------- CC ---------------- #
 
-CC	= cc
+CC	= clang
 
 ifeq ($(PARSING), yes)
 	CFLAGS += -D DEBUG_PARSING
