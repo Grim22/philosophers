@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 11:31:50 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 11:08:45 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ typedef struct	s_options
 	int				eat_max;
 	long int		latest_meal; //  timestamp du dernier repas
 	long int		timestamp_start; // timestamp debut simulation
+	int				count_right; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N-1.
+	int				count_left; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N+1.
+	// permet de s'assurer que N-1 et N+1 aient bien pris un repas avant que ne N se resserve
 	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
 	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
 	sem_t			*sem;
@@ -90,6 +93,8 @@ int		ft_print_status(int status, t_options *options);
 void	check_stop(t_options *options, int status);
 
 long	ft_get_mstime();
+int		get_right_index(t_options *options);
+int		get_left_index(t_options *options);
 
 /*
 ** ---------------------- Libft prototypes ---------------------

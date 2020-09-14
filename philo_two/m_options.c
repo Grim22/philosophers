@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 11:39:06 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 11:06:40 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	fill_args(t_options *options, char **argv, int identifier)
 	options->t_to_eat = ft_atoi(argv[3]);
 	options->t_to_sleep = ft_atoi(argv[4]);
 	options->latest_meal = UNSET;
+	options->count_left = UNSET;
+	options->count_right = UNSET;
 	if (argv[5])
 		options->eat_max = ft_atoi(argv[5]);
 	else

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 11:37:08 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 11:25:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,23 @@ void	ft_print_identifier(t_options *options)
 	free(identifier);
 }
 
+void	update_eat_count(t_options *options)
+{
+	int *eat_num;
+	
+	eat_num = options->eat_num;
+	eat_num[options->identifier - 1]++;
+	options->count_right = eat_num[get_right_index(options)];
+	options->count_left = eat_num[get_left_index(options)];
+}
+
+void	ft_print_message(t_options *options, int status)
+{
+	ft_print_timestamp(options);
+	ft_print_identifier(options);
+	ft_print_status_end(status);
+}
+
 int		ft_print_status(int status, t_options *options)
 {
 	if (*(options->stop_all) == YES)
@@ -63,9 +80,9 @@ int		ft_print_status(int status, t_options *options)
 		sem_post(options->display);
 		return (EXIT_SUCCESS);
 	}
-	ft_print_timestamp(options);
-	ft_print_identifier(options);
-	ft_print_status_end(status);
+	ft_print_message(options, status);
+	if (status == EAT)
+		update_eat_count(options);
 	check_stop(options, status);
 	if (sem_post(options->display))
 	{
