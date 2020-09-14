@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:08:45 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 17:01:49 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,18 @@ typedef struct	s_options
 	sem_t			*display;
 }				t_options;
 
+typedef struct	s_priority
+{
+	char	*name; // on a besoin d'un char *name pour "sem_open" et pour "sem_destroy"
+	sem_t	*lock;
+}				t_priority;
+
 typedef struct	s_input
 {
 	pthread_t		*threads_philo;
 	sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
 	sem_t			*display;
+	t_priority		*prio; // tableau (un pour chaque philo) de semaphores + nom de ces semaphores, permettant de respecter la priorité au moment de manger: chaque philosophe doit attendre que ses voisins aient mangé avant de re-manger
 	int				*eat_num;
 	int				stop_all;
 }				t_input;
@@ -76,8 +83,8 @@ int		init_options(t_options ***opt, char **argv, t_input *in, int num);
 int		create_threads(t_input *input, t_options **options, int num_philo);
 int		create_death_thread(t_options **options);
 
-int		destroy_sem(t_input *input);
-void	free_stuff(t_options **options, t_input *input);
+int		destroy_sem(t_input *input, int num);
+void	free_stuff(t_options **options, t_input *input, int num);
 int		join_threads(int num, pthread_t *threads);
 
 /*

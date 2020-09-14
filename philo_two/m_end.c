@@ -6,14 +6,40 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 11:37:52 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 17:04:13 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int		destroy_sem(t_input *input)
+int		close_unlink(t_priority *tab_prio, int num)
 {
+	int			i;
+	t_priority	prio;
+
+	i = 0;
+	while (i < num)
+	{
+		prio = tab_prio[i];
+		if (sem_close(prio.lock))
+		{
+			ft_putendl_fd("sem_close failed", 2);
+			return (EXIT_FAILURE);
+		}
+		if (sem_unlink(prio.name))
+		{
+			ft_putendl_fd("sem_unlink failed", 2);
+			return (EXIT_FAILURE);
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int		destroy_sem(t_input *input, int num)
+{
+	if (close_unlink(input->prio, num) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (sem_close(input->sem))
 	{
 		ft_putendl_fd("sem_close failed", 2);
@@ -37,12 +63,10 @@ int		destroy_sem(t_input *input)
 	return (EXIT_SUCCESS);
 }
 
-void	free_stuff(t_options **options, t_input *input)
+void	free_stuff(t_options **options, t_input *input, int num)
 {
 	int i;
 
-	free(input->eat_num);
-	free(input);
 	i = 0;
 	while (options[i])
 	{
@@ -50,6 +74,15 @@ void	free_stuff(t_options **options, t_input *input)
 		i++;
 	}
 	free(options);
+	i = 0;
+	while (i < num)
+	{
+		free(input->prio[i].name);
+		i++;
+	}
+	free(input->prio);
+	free(input->eat_num);
+	free(input);
 }
 
 int		join_threads(int num, pthread_t *threads)

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/11 11:35:47 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 17:00:56 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (create_threads(input, options, num_philo) == EXIT_FAILURE
 	|| join_threads(num_philo, input->threads_philo) == EXIT_FAILURE
-	|| destroy_sem(input) == EXIT_FAILURE)
+	|| destroy_sem(input, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	free_stuff(options, input);
+	free_stuff(options, input, num_philo);
 }
