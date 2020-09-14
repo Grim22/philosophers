@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:06:40 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 12:02:19 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int		malloc_options(t_options ***options, int num)
 	options[0][i] = NULL;
 	return (EXIT_SUCCESS);
 }
-
 
 void	fill_options_sem(t_options **options, t_input *input)
 {

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:52:01 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:08:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 12:02:42 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,3 @@ int			get_left_index(t_options *options)
 		ret = options->identifier + 1;
 	return (ret - 1);
 }
-

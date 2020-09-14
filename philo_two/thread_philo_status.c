@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:25:25 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 12:02:55 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,18 @@ void	ft_print_status_end(int status)
 		ft_putendl_fd(" died", 1);
 }
 
-void	ft_print_timestamp(t_options *options)
+void	ft_print_status_start(t_options *options)
 {
 	char	*timestamp;
 	long	elapsed;
 	long	current_time;
+	char	*identifier;
 
 	current_time = ft_get_mstime();
 	elapsed = current_time - options->timestamp_start;
 	timestamp = ft_itoa(elapsed);
 	ft_putstr_fd(timestamp, 1);
 	free(timestamp);
-}
-
-void	ft_print_identifier(t_options *options)
-{
-	char *identifier;
-
 	ft_putstr_fd(" ", 1);
 	identifier = ft_itoa((long)options->identifier);
 	ft_putstr_fd(identifier, 1);
@@ -52,18 +47,11 @@ void	ft_print_identifier(t_options *options)
 void	update_eat_count(t_options *options)
 {
 	int *eat_num;
-	
+
 	eat_num = options->eat_num;
 	eat_num[options->identifier - 1]++;
 	options->count_right = eat_num[get_right_index(options)];
 	options->count_left = eat_num[get_left_index(options)];
-}
-
-void	ft_print_message(t_options *options, int status)
-{
-	ft_print_timestamp(options);
-	ft_print_identifier(options);
-	ft_print_status_end(status);
 }
 
 int		ft_print_status(int status, t_options *options)
@@ -80,7 +68,8 @@ int		ft_print_status(int status, t_options *options)
 		sem_post(options->display);
 		return (EXIT_SUCCESS);
 	}
-	ft_print_message(options, status);
+	ft_print_status_start(options);
+	ft_print_status_end(status);
 	if (status == EAT)
 		update_eat_count(options);
 	check_stop(options, status);
