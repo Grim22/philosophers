@@ -1,3 +1,5 @@
 *.o
 Sujet Phi
 philo_two/philo_two
+philo_one/philo_one
+philo_three/philo_three
