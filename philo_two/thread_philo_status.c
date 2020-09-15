@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:43:18 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:46:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,6 @@ void	ft_print_status_start(t_options *options)
 	ft_putstr_fd(identifier, 1);
 	free(identifier);
 }
-
-// void	update_eat_count(t_options *options)
-// {
-// 	int *eat_num;
-
-// 	eat_num = options->eat_num;
-// 	eat_num[options->identifier - 1]++;
-// 	options->count_right = eat_num[get_right_index(options)];
-// 	options->count_left = eat_num[get_left_index(options)];
-// }
 
 int		ft_print_status(int status, t_options *options)
 {

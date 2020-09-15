@@ -6,27 +6,11 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:43:31 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:46:14 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
-
-// int		check_priority(t_options *options)
-// {
-// 	int right;
-// 	int left;
-
-// 	if (options->latest_meal == UNSET)
-// 		return (YES);
-// 	right = options->eat_num[get_right_index(options)];
-// 	left = options->eat_num[get_left_index(options)];
-// 	if (options->count_left < left &&
-// 	options->count_right < right)
-// 		return (YES);
-// 	else
-// 		return (NO);
-// }
 
 int		ft_eat(t_options *options)
 {
