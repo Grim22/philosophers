@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:32:59 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 17:08:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_eat(t_options *options)
 	{
 		if (check_priority(options) == YES)
 			break ;
-		usleep(100);
+		usleep(T_CHECK_PRIO);
 	}
 	// printf("id: %d : locked\n", options->identifier);
 	if (lock_forks(options) == EXIT_FAILURE)

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:52:01 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:31:06 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 17:00:57 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void		ft_sleep(int delay_ms)
 	start_sleep = ft_get_mstime();
 	while (ft_get_mstime() - start_sleep < delay_ms)
 	{
-		usleep(100);
+		usleep(T_SLEEP);
 	}
 }

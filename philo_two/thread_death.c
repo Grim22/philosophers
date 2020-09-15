@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/09 17:07:40 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 17:07:37 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*death_alarm(void *void_options)
 				return (NULL);
 			i++;
 		}
-		usleep(1000);
+		usleep(T_CHECK_DEATH);
 	}
 	return (NULL);
 }

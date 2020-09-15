@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 15:31:11 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 17:10:19 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ enum	e_state
 # define NO 0
 # define ODD 0
 # define EVEN 1
+# define T_SLEEP 500
+# define T_CHECK_DEATH 2000
+# define T_CHECK_PRIO 200 // ne semble pas avoir bcp d'impact sur la charge du cpu
 
 /*
 ** ---------------------- Main prototypes ---------------------
