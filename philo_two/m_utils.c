@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:52:01 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 12:02:42 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:30:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,15 @@ int			get_left_index(t_options *options)
 	else
 		ret = options->identifier + 1;
 	return (ret - 1);
+}
+
+void		ft_sleep(int delay_ms)
+{
+	long int	start_sleep;
+
+	start_sleep = ft_get_mstime();
+	while (ft_get_mstime() - start_sleep < delay_ms)
+	{
+		usleep(100);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 12:11:47 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:32:59 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,10 @@ int		ft_eat(t_options *options)
 		unlock_forks(options);
 		return (EXIT_SUCCESS);
 	}
-	usleep(options->t_to_eat * 1000);
-	// printf("id: %d : locked\n", options->identifier);
+	ft_sleep(options->t_to_eat);
 	if (unlock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	// printf("id: %d : unlocked\n", options->identifier);
 	return (EXIT_SUCCESS);
-}
-
-long	ft_get_diff(t_options *options)
-{
-	long int	elapsed;
-	long int	theoretical;
-
-	elapsed = ft_get_mstime() - options->latest_meal;
-	theoretical = options->t_to_eat;
-	if (elapsed - theoretical > options->t_to_sleep)
-		return (options->t_to_sleep);
-	if (elapsed - theoretical > 0)
-		return (elapsed - theoretical);
-	else
-		return (0);
 }
 
 void	*cycle(void *void_options)
@@ -84,7 +67,7 @@ void	*cycle(void *void_options)
 			return (NULL);
 		if (ft_print_status(SLEEP, options) == EXIT_FAILURE)
 			return (NULL);
-		usleep(options->t_to_sleep * 1000 - ft_get_diff(options) * 1000);
+		ft_sleep(options->t_to_sleep);
 		if (ft_print_status(THINK, options) == EXIT_FAILURE)
 			return (NULL);
 	}
