@@ -1,2 +1,2 @@
-prevoir le cas ou pas de temps de sommeil ? (philo_one comme philo_two)
-    -> eviter qu'un philo mange deux fois d'affilé
+options->sem (semaphore représentant le nb de fourchettes dispo) qui n'a plus d'utilité (les options->prio suffisent)
+-> indiqué dans la consigne d'avoir un tel semaphore, donc gardé pour le moment (commenté)
