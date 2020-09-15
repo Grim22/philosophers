@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 10:10:46 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:48:23 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ int		init_sem_prio(int num, t_input *input)
 
 int		init_sem(int num, t_input *input)
 {
-	sem_unlink("semaphore");
+	// sem_unlink("semaphore");
 	sem_unlink("display");
-	input->sem = sem_open("semaphore", O_CREAT | O_EXCL, S_IRWXU, num);
-	if (input->sem == SEM_FAILED)
-	{
-		ft_putendl_fd("sem_open failed", 2);
-		return (EXIT_FAILURE);
-	}
+	// input->sem = sem_open("semaphore", O_CREAT | O_EXCL, S_IRWXU, num);
+	// if (input->sem == SEM_FAILED)
+	// {
+	// 	ft_putendl_fd("sem_open failed", 2);
+	// 	return (EXIT_FAILURE);
+	// }
 	input->display = sem_open("display", O_CREAT | O_EXCL, S_IRWXU, 1);
 	if (input->display == SEM_FAILED)
 	{

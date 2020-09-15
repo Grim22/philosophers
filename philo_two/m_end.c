@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 17:04:13 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:49:35 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ int		destroy_sem(t_input *input, int num)
 {
 	if (close_unlink(input->prio, num) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (sem_close(input->sem))
-	{
-		ft_putendl_fd("sem_close failed", 2);
-		return (EXIT_FAILURE);
-	}
-	if (sem_unlink("semaphore"))
-	{
-		ft_putendl_fd("sem_unlink failed", 2);
-		return (EXIT_FAILURE);
-	}
+	// if (sem_close(input->sem))
+	// {
+	// 	ft_putendl_fd("sem_close failed", 2);
+	// 	return (EXIT_FAILURE);
+	// }
+	// if (sem_unlink("semaphore"))
+	// {
+	// 	ft_putendl_fd("sem_unlink failed", 2);
+	// 	return (EXIT_FAILURE);
+	// }
 	if (sem_close(input->display))
 	{
 		ft_putendl_fd("sem_close failed", 2);

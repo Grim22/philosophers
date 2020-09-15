@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:46:56 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:47:56 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	fill_options_sem(t_options **options, t_input *input, int num)
 	i = 0;
 	while (options[i])
 	{
-		options[i]->sem = input->sem;
+		// options[i]->sem = input->sem;
 		options[i]->display = input->display;
 		options[i]->prio = input->prio[i].lock;
 		if (i == 0)
