@@ -47,6 +47,7 @@ endif
 
 SRCS += main.c
 SRCS += m_init.c
+SRCS += m_init_sem.c
 SRCS += m_init_threads.c
 SRCS += m_options.c
 SRCS += m_end.c

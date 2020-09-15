@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:41:44 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 15:08:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ enum	e_state
 
 int		init_input(int num_philo, t_input **input);
 int		init_options(t_options ***opt, char **argv, t_input *in, int num);
+int		init_sem_display(int num, t_input *input);
+int		init_sem_prio(int num, t_input *input);
 
 int		create_threads(t_input *input, t_options **options, int num_philo);
 int		create_death_thread(t_options **options);
