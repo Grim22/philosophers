@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 12:02:19 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 10:15:10 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		malloc_options(t_options ***options, int num)
 	return (EXIT_SUCCESS);
 }
 
-void	fill_options_sem(t_options **options, t_input *input)
+void	fill_options_sem(t_options **options, t_input *input, int num)
 {
 	int i;
 
@@ -77,6 +77,15 @@ void	fill_options_sem(t_options **options, t_input *input)
 	{
 		options[i]->sem = input->sem;
 		options[i]->display = input->display;
+		options[i]->prio = input->prio[i].lock;
+		if (i == 0)
+			options[i]->prio_left = input->prio[num - 1].lock;
+		else
+			options[i]->prio_left = input->prio[i - 1].lock;
+		if (i == num - 1)
+			options[i]->prio_right = input->prio[0].lock;
+		else
+			options[i]->prio_right = input->prio[i + 1].lock;
 		i++;
 	}
 }
@@ -86,6 +95,6 @@ int		init_options(t_options ***options, char **argv, t_input *input, int num)
 	if (malloc_options(options, num) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	fill_options_args(*options, argv, input);
-	fill_options_sem(*options, input);
+	fill_options_sem(*options, input, num);
 	return (EXIT_SUCCESS);
 }

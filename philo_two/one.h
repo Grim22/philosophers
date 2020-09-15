@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 17:01:49 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/14 17:23:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct	s_options
 	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
 	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
 	sem_t			*sem;
+	sem_t			*prio_left;
+	sem_t			*prio;
+	sem_t			*prio_right;
 	sem_t			*display;
 }				t_options;
 

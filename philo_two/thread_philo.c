@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:25:16 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 10:06:37 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int		check_priority(t_options *options)
 
 int		ft_eat(t_options *options)
 {
-	while (*(options->stop_all) == NO)
-	{
-		if (check_priority(options) == YES)
-			break ;
-		usleep(100);
-	}
+	// while (*(options->stop_all) == NO)
+	// {
+	// 	if (check_priority(options) == YES)
+	// 		break ;
+	// 	usleep(100);
+	// }
 	if (lock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	options->latest_meal = ft_get_mstime();
@@ -45,13 +45,13 @@ int		ft_eat(t_options *options)
 	{
 		if (unlock_forks(options) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		sem_post(options->sem);
-		sem_post(options->sem);
 		return (EXIT_SUCCESS);
 	}
 	usleep(options->t_to_eat * 1000);
+	// printf("id: %d, before unlock\n", options->identifier);
 	if (unlock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	// printf("id: %d, after unlock\n", options->identifier);
 	return (EXIT_SUCCESS);
 }
 
