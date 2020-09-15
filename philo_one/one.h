@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:30:07 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 15:31:11 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,42 +68,42 @@ enum	e_state
 ** ---------------------- Main prototypes ---------------------
 */
 
-int		init_input(int num_philo, t_input **input);
-int		init_options(t_options ***opt, char **argv, t_input *in, int num);
+int				init_input(int num_philo, t_input **input);
+int				init_options(t_options ***opt, char **av, t_input *in, int n);
 
-int		create_threads(t_input *input, t_options **options, int num_philo);
-int		create_death_thread(t_options **options);
+int				create_threads(t_input *input, t_options **options, int num);
+int				create_death_thread(t_options **options);
 
-int		destroy_mutexes(int num, t_input *input);
-void	free_stuff(t_options **options, t_input *input);
-int		join_threads(int num, pthread_t *threads);
+int				destroy_mutexes(int num, t_input *input);
+void			free_stuff(t_options **options, t_input *input);
+int				join_threads(int num, pthread_t *threads);
 
 /*
 ** ---------------------- Thread prototypes ---------------------
 */
 
-void	*cycle(void *void_options);
-void	*stop(void *void_options);
+void			*cycle(void *void_options);
+void			*stop(void *void_options);
 
-int		lock_forks(t_options *options);
-int		unlock_forks(t_options *options);
-int		ft_print_status(int status, t_options *options);
-void	check_stop(t_options *options, int status);
+int				lock_forks(t_options *options);
+int				unlock_forks(t_options *options);
+int				ft_print_status(int status, t_options *options);
+void			check_stop(t_options *options, int status);
 
-long	ft_get_mstime();
-void	ft_sleep(int delay_ms);
-int		get_right_index(t_options *options);
-int		get_left_index(t_options *options);
+long			ft_get_mstime();
+void			ft_sleep(int delay_ms);
+int				get_right_index(t_options *options);
+int				get_left_index(t_options *options);
 
 /*
 ** ---------------------- Libft prototypes ---------------------
 */
 
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-void	ft_putendl_fd(char *s, int fd);
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_itoa(long int nlong);
-int		ft_isdigit_str(char *str);
+size_t			ft_strlen(const char *s);
+int				ft_atoi(const char *str);
+void			ft_putendl_fd(char *s, int fd);
+void			ft_putstr_fd(char *s, int fd);
+char			*ft_itoa(long int nlong);
+int				ft_isdigit_str(char *str);
 
 #endif

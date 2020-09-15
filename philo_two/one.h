@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 15:12:15 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 15:30:10 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include <pthread.h>
 # include <sys/time.h>
-#include <semaphore.h>
+# include <semaphore.h>
 # include <unistd.h> // usleep, write
 # include <stdlib.h> //malloc
 # include <string.h> // memset
 # include "stdio.h" // printf
-#include <fcntl.h> // for sem_open flags
-#include <sys/stat.h> // for sem_open modes
+# include <fcntl.h> // for sem_open flags
+# include <sys/stat.h> // for sem_open modes
 
 typedef struct	s_options
 {
@@ -77,44 +77,42 @@ enum	e_state
 ** ---------------------- Main prototypes ---------------------
 */
 
-int		init_input(int num_philo, t_input **input);
-int		init_options(t_options ***opt, char **argv, t_input *in, int num);
-int		init_sem_display(int num, t_input *input);
-int		init_sem_prio(int num, t_input *input);
+int				init_input(int num_philo, t_input **input);
+int				init_options(t_options ***op, char **av, t_input *in, int n);
+int				init_sem_display(int num, t_input *input);
+int				init_sem_prio(int num, t_input *input);
 
-int		create_threads(t_input *input, t_options **options, int num_philo);
-int		create_death_thread(t_options **options);
+int				create_threads(t_input *in, t_options **op, int num);
+int				create_death_thread(t_options **options);
 
-int		destroy_sem(t_input *input, int num);
-void	free_stuff(t_options **options, t_input *input, int num);
-int		join_threads(int num, pthread_t *threads);
+int				destroy_sem(t_input *input, int num);
+void			free_stuff(t_options **options, t_input *input, int num);
+int				join_threads(int num, pthread_t *threads);
 
 /*
 ** ---------------------- Thread prototypes ---------------------
 */
 
-void	*cycle(void *void_options);
-void	*stop(void *void_options);
+void			*cycle(void *void_options);
+void			*stop(void *void_options);
 
-int		lock_forks(t_options *options);
-int		unlock_forks(t_options *options);
-int		ft_print_status(int status, t_options *options);
-void	check_stop(t_options *options, int status);
+int				lock_forks(t_options *options);
+int				unlock_forks(t_options *options);
+int				ft_print_status(int status, t_options *options);
+void			check_stop(t_options *options, int status);
 
-long	ft_get_mstime();
-void	ft_sleep(int delay_ms);
-// int		get_right_index(t_options *options);
-// int		get_left_index(t_options *options);
+long			ft_get_mstime();
+void			ft_sleep(int delay_ms);
 
 /*
 ** ---------------------- Libft prototypes ---------------------
 */
 
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-void	ft_putendl_fd(char *s, int fd);
-void	ft_putstr_fd(char *s, int fd);
-char	*ft_itoa(long int nlong);
-int		ft_isdigit_str(char *str);
+size_t			ft_strlen(const char *s);
+int				ft_atoi(const char *str);
+void			ft_putendl_fd(char *s, int fd);
+void			ft_putstr_fd(char *s, int fd);
+char			*ft_itoa(long int nlong);
+int				ft_isdigit_str(char *str);
 
 #endif

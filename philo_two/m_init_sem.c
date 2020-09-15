@@ -6,21 +6,23 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:06:49 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 15:07:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 15:20:17 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int		init_firsts(t_input *input, int i)
+int		init_firsts(t_input *in, int i)
 {
-	input->prio[i].name = ft_itoa((long)i);
-	sem_unlink(input->prio[i].name);
+	in->prio[i].name = ft_itoa((long)i);
+	sem_unlink(in->prio[i].name);
 	if (i % 2 == 0)
-		input->prio[i].lock = sem_open(input->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 2);
+		in->prio[i].lock =
+		sem_open(in->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 2);
 	else
-		input->prio[i].lock = sem_open(input->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 0);
-	if (input->prio[i].lock == SEM_FAILED)
+		in->prio[i].lock =
+		sem_open(in->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 0);
+	if (in->prio[i].lock == SEM_FAILED)
 	{
 		ft_putendl_fd("sem_open failed", 2);
 		return (EXIT_FAILURE);
@@ -28,18 +30,20 @@ int		init_firsts(t_input *input, int i)
 	return (EXIT_SUCCESS);
 }
 
-int		init_last(t_input *input, int num)
+int		init_last(t_input *in, int num)
 {
 	int i;
 
 	i = num - 1;
-	input->prio[i].name = ft_itoa((long)i);
-	sem_unlink(input->prio[i].name);
+	in->prio[i].name = ft_itoa((long)i);
+	sem_unlink(in->prio[i].name);
 	if (num % 2 == 0)
-		input->prio[i].lock = sem_open(input->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 0);
+		in->prio[i].lock =
+		sem_open(in->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 0);
 	else
-		input->prio[i].lock = sem_open(input->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 1);
-	if (input->prio[i].lock == SEM_FAILED)
+		in->prio[i].lock =
+		sem_open(in->prio[i].name, O_CREAT | O_EXCL, S_IRWXU, 1);
+	if (in->prio[i].lock == SEM_FAILED)
 	{
 		ft_putendl_fd("sem_open failed", 2);
 		return (EXIT_FAILURE);
@@ -50,7 +54,7 @@ int		init_last(t_input *input, int num)
 int		init_sem_prio(int num, t_input *input)
 {
 	int i;
-	
+
 	if (!(input->prio = malloc(sizeof(t_priority) * num)))
 	{
 		ft_putendl_fd("malloc failed", 2);
