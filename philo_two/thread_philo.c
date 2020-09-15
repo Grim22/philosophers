@@ -6,36 +6,30 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:33:20 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 14:43:31 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-int		check_priority(t_options *options)
-{
-	int right;
-	int left;
+// int		check_priority(t_options *options)
+// {
+// 	int right;
+// 	int left;
 
-	if (options->latest_meal == UNSET)
-		return (YES);
-	right = options->eat_num[get_right_index(options)];
-	left = options->eat_num[get_left_index(options)];
-	if (options->count_left < left &&
-	options->count_right < right)
-		return (YES);
-	else
-		return (NO);
-}
+// 	if (options->latest_meal == UNSET)
+// 		return (YES);
+// 	right = options->eat_num[get_right_index(options)];
+// 	left = options->eat_num[get_left_index(options)];
+// 	if (options->count_left < left &&
+// 	options->count_right < right)
+// 		return (YES);
+// 	else
+// 		return (NO);
+// }
 
 int		ft_eat(t_options *options)
 {
-	// while (*(options->stop_all) == NO)
-	// {
-	// 	if (check_priority(options) == YES)
-	// 		break ;
-	// 	usleep(100);
-	// }
 	if (lock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	options->latest_meal = ft_get_mstime();
