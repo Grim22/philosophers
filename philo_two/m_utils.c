@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:52:01 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:30:25 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 15:13:07 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,6 @@ long int	ft_get_mstime(void)
 
 	gettimeofday(&current_t, NULL);
 	return ((long)(current_t.tv_sec * 1000 + current_t.tv_usec / 1000));
-}
-
-int			get_right_index(t_options *options)
-{
-	int ret;
-
-	if (options->identifier == 1)
-		ret = options->num_philo;
-	else
-		ret = options->identifier - 1;
-	return (ret - 1);
-}
-
-int			get_left_index(t_options *options)
-{
-	int ret;
-
-	if (options->identifier == options->num_philo)
-		ret = 1;
-	else
-		ret = options->identifier + 1;
-	return (ret - 1);
 }
 
 void		ft_sleep(int delay_ms)

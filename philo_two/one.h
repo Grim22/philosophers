@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 15:08:25 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 15:12:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef struct	s_options
 	int				eat_max;
 	long int		latest_meal; //  timestamp du dernier repas
 	long int		timestamp_start; // timestamp debut simulation
-	// int				count_right; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N-1.
-	// int				count_left; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N+1.
 	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
 	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
 	sem_t			*sem;
@@ -53,7 +51,7 @@ typedef struct	s_priority
 typedef struct	s_input
 {
 	pthread_t		*threads_philo;
-	sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
+	// sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
 	sem_t			*display;
 	t_priority		*prio; // tableau (un pour chaque philo) de semaphores + nom de ces semaphores, permettant de respecter la priorité au moment de manger: chaque philosophe doit attendre que ses voisins aient mangé avant de re-manger
 	int				*eat_num;
@@ -105,8 +103,8 @@ void	check_stop(t_options *options, int status);
 
 long	ft_get_mstime();
 void	ft_sleep(int delay_ms);
-int		get_right_index(t_options *options);
-int		get_left_index(t_options *options);
+// int		get_right_index(t_options *options);
+// int		get_left_index(t_options *options);
 
 /*
 ** ---------------------- Libft prototypes ---------------------
