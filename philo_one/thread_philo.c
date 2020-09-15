@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:46:33 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 12:11:47 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int		ft_eat(t_options *options)
 			break ;
 		usleep(100);
 	}
+	// printf("id: %d : locked\n", options->identifier);
 	if (lock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	// printf("id: %d : unlocked\n", options->identifier);
 	options->latest_meal = ft_get_mstime();
 	if (ft_print_status(EAT, options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
@@ -47,8 +49,10 @@ int		ft_eat(t_options *options)
 		return (EXIT_SUCCESS);
 	}
 	usleep(options->t_to_eat * 1000);
+	// printf("id: %d : locked\n", options->identifier);
 	if (unlock_forks(options) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	// printf("id: %d : unlocked\n", options->identifier);
 	return (EXIT_SUCCESS);
 }
 
@@ -59,6 +63,8 @@ long	ft_get_diff(t_options *options)
 
 	elapsed = ft_get_mstime() - options->latest_meal;
 	theoretical = options->t_to_eat;
+	if (elapsed - theoretical > options->t_to_sleep)
+		return (options->t_to_sleep);
 	if (elapsed - theoretical > 0)
 		return (elapsed - theoretical);
 	else

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:25:16 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 12:13:30 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ long	ft_get_diff(t_options *options)
 
 	elapsed = ft_get_mstime() - options->latest_meal;
 	theoretical = options->t_to_eat;
+	if (elapsed - theoretical > options->t_to_sleep)
+		return (options->t_to_sleep);
 	if (elapsed - theoretical > 0)
 		return (elapsed - theoretical);
 	else
