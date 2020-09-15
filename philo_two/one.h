@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 15:30:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 15:38:32 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_options
 	long int		timestamp_start; // timestamp debut simulation
 	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
 	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
-	sem_t			*sem;
+	// sem_t			*sem;
 	sem_t			*prio_left;
 	sem_t			*prio;
 	sem_t			*prio_right;
