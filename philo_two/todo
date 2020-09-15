@@ -1,2 +1,6 @@
 options->sem (semaphore représentant le nb de fourchettes dispo) qui n'a plus d'utilité (les options->prio suffisent)
 -> indiqué dans la consigne d'avoir un tel semaphore, donc gardé pour le moment (commenté)
+
+comme pour philo_1, voir si ca vaut le coup de garder les ft_sleep, qui consomment bcp en cpu, mais qui permettent de ne pas prendre de "retard"
+
+supprimer les ft_itoa(errno) dans m_end.c

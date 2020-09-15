@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 17:08:55 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/15 17:20:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ONE_H
 
 # include <pthread.h>
+# include <errno.h>
 # include <sys/time.h>
 # include <semaphore.h>
 # include <unistd.h> // usleep, write
