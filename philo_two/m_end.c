@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:26:32 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 14:53:00 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		close_unlink(t_priority *tab_prio, int num)
 		}
 		if (sem_unlink(prio.name))
 		{
-			ft_putstr_fd("sem_unlink prio failed with code:", 2);
+			// ft_putstr_fd("sem_unlink prio failed with code:", 2);
 			// ft_putendl_fd(ft_itoa(errno), 2);
 			return (EXIT_FAILURE);
 		}
@@ -58,7 +58,7 @@ int		destroy_sem(t_input *input, int num)
 	}
 	if (sem_unlink("display"))
 	{
-		ft_putstr_fd("sem_unlink display failed with code:", 2);
+		// ft_putstr_fd("sem_unlink display failed with code:", 2);
 		// ft_putendl_fd(ft_itoa(errno), 2);
 		return (EXIT_FAILURE);
 	}
