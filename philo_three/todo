@@ -1,0 +1,6 @@
+options->sem (semaphore représentant le nb de fourchettes dispo) qui n'a plus d'utilité (les options->prio suffisent)
+-> indiqué dans la consigne d'avoir un tel semaphore, donc gardé pour le moment (commenté)
+
+voir si ca vaut le coup de garder les ft_sleep, qui consomment bcp en cpu, mais qui permettent de ne pas prendre de "retard"
+
+avec le testeur, les sem_destroy failent (pourquoi ? que avec le testeur). Ne pas mettre le message d'erreur ?
