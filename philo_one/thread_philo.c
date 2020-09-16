@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 17:08:29 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:16:26 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		check_priority(t_options *options)
 		return (NO);
 }
 
-int		ft_eat(t_options *options)
+void	ft_eat(t_options *options)
 {
 	while (*(options->stop_all) == NO) // avant d'autoriser le philosophe a manger, on s'assure qu'il ne grille pas la priorité à ses voisins: avant de se resservir, il faut que ses deux voisins aient mangé !
 	{
@@ -36,22 +36,10 @@ int		ft_eat(t_options *options)
 			break ;
 		usleep(T_CHECK_PRIO);
 	}
-	// printf("id: %d : locked\n", options->identifier);
-	if (lock_forks(options) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	// printf("id: %d : unlocked\n", options->identifier);
-	options->latest_meal = ft_get_mstime();
-	if (ft_print_status(EAT, options) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (*(options->stop_all) == YES)
-	{
-		unlock_forks(options);
-		return (EXIT_SUCCESS);
-	}
-	ft_sleep(options->t_to_eat);
-	if (unlock_forks(options) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	lock_forks(options);
+	ft_print_status(EAT, options);
+	ft_wait(options->t_to_eat, options->stop_all);
+	unlock_forks(options);
 }
 
 void	*cycle(void *void_options)
@@ -61,15 +49,10 @@ void	*cycle(void *void_options)
 	options = (t_options*)void_options;
 	while (*(options->stop_all) == NO)
 	{
-		if (ft_eat(options) == EXIT_FAILURE)
-			return (NULL);
-		if (*(options->stop_all) == YES)
-			return (NULL);
-		if (ft_print_status(SLEEP, options) == EXIT_FAILURE)
-			return (NULL);
-		ft_sleep(options->t_to_sleep);
-		if (ft_print_status(THINK, options) == EXIT_FAILURE)
-			return (NULL);
+		ft_eat(options);
+		ft_print_status(SLEEP, options);
+		ft_wait(options->t_to_sleep, options->stop_all);
+		ft_print_status(THINK, options);
 	}
 	return (NULL);
 }

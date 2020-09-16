@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:51:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:15:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,25 @@ void	update_eat_count(t_options *options)
 {
 	int *eat_num;
 
+	options->latest_meal = ft_get_mstime();
 	eat_num = options->eat_num;
 	eat_num[options->identifier - 1]++;
 	options->count_right = eat_num[get_right_index(options)];
 	options->count_left = eat_num[get_left_index(options)];
 }
 
-int		ft_print_status(int status, t_options *options)
+void	ft_print_status(int status, t_options *options)
 {
-	if (*(options->stop_all) == YES)
-		return (EXIT_SUCCESS);
-	if (pthread_mutex_lock(options->display) == EXIT_FAILURE)
-	{
-		ft_putendl_fd("lock display failed", 1);
-		return (EXIT_FAILURE);
-	}
+	pthread_mutex_lock(options->display);
 	if (*(options->stop_all) == YES)
 	{
-		if (pthread_mutex_unlock(options->display) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
+		pthread_mutex_unlock(options->display);
+		return ;
 	}
 	ft_print_status_start(options);
 	ft_print_status_end(status);
 	if (status == EAT)
 		update_eat_count(options);
 	check_stop(options, status);
-	if (pthread_mutex_unlock(options->display))
-	{
-		ft_putendl_fd("unlock display failed", 1);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+	pthread_mutex_unlock(options->display);
 }
