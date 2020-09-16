@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:01:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:41:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@
 
 /*
 ** Options is the argument given to every philosopher thread
-** Stop_all is a pointer on an int shared by all threads. When int value is YES, all threads stop
-** Eat_num is an array of int. It is shared by all threads. Eat_num[i] represents the number of time philo i has eaten
+** Stop_all is a pointer on an int shared by all threads.
+**	When int value is YES, all threads stop
+** Eat_num is an array of int. It is shared by all threads.
+**	Eat_num[i] represents the number of time philo i has eaten
 ** Semaphores prio are shared between a philo and his neighbours
 ** Semaphore display is shared by all philosophers
 ** Latest_meal and timestamp_start are timestamps
@@ -54,7 +56,8 @@ typedef struct	s_options
 
 /*
 ** T_PRIORITY contains a semaphore and the name of this semaphore
-** We need to keep the name stored somewhere in order to unlink the semaphore, at the end of the programm 
+** We need to keep the name stored somewhere in order to unlink the semaphore,
+**	at the end of the programm
 */
 
 typedef struct	s_priority
@@ -90,11 +93,15 @@ enum	e_state
 };
 
 /*
-** T_SLEEP: every T_SLEEP ms, program will check if it has been on hold for enough time
-** Used in ft_sleep, that replaces usleep: as usleep(time) sometimes sleeps more thant "time", ft_sleep is more precise
-** The smaller T_SLEEP is, the better in terms of precisions = programm will not run "late"
+** T_SLEEP: every T_SLEEP ms, program will check
+**	if it has been on hold for enough time
+** Used in ft_sleep, that replaces usleep:
+**	as usleep(time) sometimes sleeps more thant "time", ft_sleep is more precise
+** The smaller T_SLEEP is, the better
+**	in terms of precisions = programm will not run "late"
 ** Yes the smaller T_SLEEP, the more expensive it is in terms of CPU load
-** T_CHECK_DEATH: interval at which thread_death will check if any philo has died.
+** T_CHECK_DEATH: interval at which thread_death will check
+**	if any philo has died.
 ** Small interval: better precision but more expensive in terms of CPU
 */
 

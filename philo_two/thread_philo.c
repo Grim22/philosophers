@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 11:58:44 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:35:39 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ void	ft_eat(t_options *options)
 ** After game has ended (philo died or all philo have eaten enough):
 ** - Nothing must be displayed anymore (cf thread_philo_status)
 ** - Threads must exit (thanks to stop_all variable)
-** - There can be a delay between the end of the game (last status displayed) and thread exit
-** 	-> ex: if a philo is eating or sleeping when game ends, thread will wait until he's done
-**	-> threads will exit ASPAP, meaning that there should be a check before philo starts to eat / sleep (cf ft_wait)
+** - There can be a delay between the end of the game
+**		(last status displayed) and thread exit
+** 	-> ex: if a philo is eating or sleeping when game ends,
+**		thread will wait until he's done
+**	-> threads will exit ASPAP, meaning that there should be a check
+**		before philo starts to eat / sleep (cf ft_wait)
 ** - At exit, all locks must be unlocked (else leaks)
 */
 

@@ -3,6 +3,4 @@ options->sem (semaphore représentant le nb de fourchettes dispo) qui n'a plus d
 
 voir si ca vaut le coup de garder les ft_sleep, qui consomment bcp en cpu, mais qui permettent de ne pas prendre de "retard"
 
-supprimer les ft_itoa(errno) dans m_end.c
-
 avec le testeur, les sem_destroy failent (pourquoi ? que avec le testeur). Ne pas mettre le message d'erreur ?

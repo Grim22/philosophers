@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:06:49 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 09:54:25 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:38:58 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,12 @@ int		init_last(t_input *in, int num)
 ** Each time a philo eats:
 **	- its sem value is decreased by 2
 **	- sem value of each of its neighbour is increased by one
-** This system allows a rotation among philosophers: philo_X will wait for philo_X+1 and philo_X-1 to eat before it is allowed to eat again
-** In case of an odd number of philosophers, the "last" philo will get a sem value of 1, to make a correct rotation possible
+** This system allows a rotation among philosophers:
+**		philo_X will wait for philo_X+1 and philo_X-1 to eat
+**		before it is allowed to eat again
+** In case of an odd number of philosophers,
+**		the "last" philo will get a sem value of 1,
+**		to make a correct rotation possible
 */
 
 int		init_sem_prio(int num, t_input *input)

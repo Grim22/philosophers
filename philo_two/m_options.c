@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 09:57:44 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:36:58 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ int		malloc_options(t_options ***options, int num)
 }
 
 /*
-** Each philos has its own semaphore "prio", which is decreased every time he eats
-** Each philo has access to semaphore prio of his neighbours, which are increased every time he eats
+** Each philos has its own semaphore "prio",
+**	which is decreased every time he eats
+** Each philo has access to semaphore prio of his neighbours,
+**	which are increased every time he eats
 ** (see m_init_sem.c and thread_philo_forks.c)
 */
 
