@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 14:47:56 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 09:57:44 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	fill_args(t_options *options, char **argv, int identifier)
 		options->eat_max = UNSET;
 }
 
-void	fill_options_args(t_options **options, char **argv, t_input *input)
+void	init_options_other(t_options **options, char **argv, t_input *input)
 {
 	int		i;
 	long	time;
@@ -66,7 +66,13 @@ int		malloc_options(t_options ***options, int num)
 	return (EXIT_SUCCESS);
 }
 
-void	fill_options_sem(t_options **options, t_input *input, int num)
+/*
+** Each philos has its own semaphore "prio", which is decreased every time he eats
+** Each philo has access to semaphore prio of his neighbours, which are increased every time he eats
+** (see m_init_sem.c and thread_philo_forks.c)
+*/
+
+void	init_options_sem(t_options **options, t_input *input, int num)
 {
 	int i;
 
@@ -92,7 +98,7 @@ int		init_options(t_options ***options, char **argv, t_input *input, int num)
 {
 	if (malloc_options(options, num) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	fill_options_args(*options, argv, input);
-	fill_options_sem(*options, input, num);
+	init_options_other(*options, argv, input);
+	init_options_sem(*options, input, num);
 	return (EXIT_SUCCESS);
 }

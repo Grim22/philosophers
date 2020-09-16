@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 17:20:51 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 10:09:49 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # include <fcntl.h> // for sem_open flags
 # include <sys/stat.h> // for sem_open modes
 
+/*
+** Options is the argument given to every philosopher thread
+** Stop_all is a pointer on an int shared by all threads. When int value is YES, all threads stop
+** Eat_num is an array of int. It is shared by all threads. Eat_num[i] represents the number of time philo i has eaten
+** Semaphores prio are shared between a philo and his neighbours
+** Semaphore display is shared by all philosophers
+** Latest_meal and timestamp_start are timestamps
+*/
+
 typedef struct	s_options
 {
 	int				identifier;
@@ -32,10 +41,10 @@ typedef struct	s_options
 	int				t_to_eat;
 	int				t_to_sleep;
 	int				eat_max;
-	long int		latest_meal; //  timestamp du dernier repas
-	long int		timestamp_start; // timestamp debut simulation
-	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
-	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
+	long int		latest_meal;
+	long int		timestamp_start;
+	int				*eat_num;
+	int				*stop_all;
 	// sem_t			*sem;
 	sem_t			*prio_left;
 	sem_t			*prio;
@@ -43,18 +52,30 @@ typedef struct	s_options
 	sem_t			*display;
 }				t_options;
 
+/*
+** T_PRIORITY contains a semaphore and the name of this semaphore
+** We need to keep the name stored somewhere in order to unlink the semaphore, at the end of the programm 
+*/
+
 typedef struct	s_priority
 {
-	char	*name; // on a besoin d'un char *name pour "sem_open" et pour "sem_destroy"
+	char	*name;
 	sem_t	*lock;
 }				t_priority;
+
+/*
+** Input contains:
+** 	- an array of pthread_t (one thread for each philo)
+**	- some variables that will be shared among philosophers
+** In main, input is first initialised, then it is used to fill t_options
+*/
 
 typedef struct	s_input
 {
 	pthread_t		*threads_philo;
 	// sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
 	sem_t			*display;
-	t_priority		*prio; // tableau (un pour chaque philo) de semaphores + nom de ces semaphores, permettant de respecter la priorité au moment de manger: chaque philosophe doit attendre que ses voisins aient mangé avant de re-manger
+	t_priority		*prio;
 	int				*eat_num;
 	int				stop_all;
 }				t_input;
@@ -67,6 +88,15 @@ enum	e_state
 	THINK,
 	DIE
 };
+
+/*
+** T_SLEEP: every T_SLEEP ms, program will check if it has been on hold for enough time
+** Used in ft_sleep, that replaces usleep: as usleep(time) sometimes sleeps more thant "time", ft_sleep is more precise
+** The smaller T_SLEEP is, the better in terms of precisions = programm will not run "late"
+** Yes the smaller T_SLEEP, the more expensive it is in terms of CPU load
+** T_CHECK_DEATH: interval at which thread_death will check if any philo has died.
+** Small interval: better precision but more expensive in terms of CPU
+*/
 
 # define UNSET -1
 # define YES 1

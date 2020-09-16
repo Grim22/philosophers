@@ -1,6 +1,1 @@
-faire un check que chaque argument soit bien un entier positif (strictement ?)
-    tester les cas particuliers 1 et 0
-
-proteger les atoi contre des arguments trop grands
-
-optimiser les usleep (cf https://stackoverflow.com/questions/12777254/time-delay-in-c-usleep/12777296#12777296):
+voir si ca vaut le coup de garder les ft_sleep, qui consomment bcp en cpu, mais qui permettent de ne pas prendre de "retard"

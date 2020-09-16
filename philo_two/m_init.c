@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 15:07:16 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 09:31:04 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	fill_eat_num(int *eat_num, int num)
 	}
 }
 
-int		fill_vars(int num, t_input *input)
+int		init_other(int num, t_input *input)
 {
 	if (!(input->eat_num = malloc(num * sizeof(int))))
 	{
@@ -43,7 +43,7 @@ int		init_input(int num_philo, t_input **input)
 		return (EXIT_FAILURE);
 	if (init_sem_prio(num_philo, *input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (fill_vars(num_philo, *input) == EXIT_FAILURE)
+	if (init_other(num_philo, *input) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
