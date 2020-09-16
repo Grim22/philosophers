@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 10:09:49 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 12:01:26 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,13 @@ int				join_threads(int num, pthread_t *threads);
 void			*cycle(void *void_options);
 void			*stop(void *void_options);
 
-int				lock_forks(t_options *options);
-int				unlock_forks(t_options *options);
-int				ft_print_status(int status, t_options *options);
+void			lock_forks(t_options *options);
+void			unlock_forks(t_options *options);
+void			ft_print_status(int status, t_options *options);
 void			check_stop(t_options *options, int status);
 
 long			ft_get_mstime();
-void			ft_sleep(int delay_ms);
+void			ft_wait(int delay_ms, int *stop_all);
 
 /*
 ** ---------------------- Libft prototypes ---------------------
