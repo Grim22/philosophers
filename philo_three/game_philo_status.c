@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread_philo_status.c                              :+:      :+:    :+:   */
+/*   game_philo_status.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 18:25:16 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 19:08:37 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,21 @@ void	sem_post_multi(t_options *options)
 
 /*
 ** Case 1: philo X dies
-** 		sem_post_multi will send the signal to main that all process can be killed
-**		options->display will remain locked, so that there can be no display in the meantime
+** 		sem_post_multi will send the signal to main that all process
+**		can be killed
+**		options->display will remain locked, so that there can be no
+**		display in the meantime
 ** Case 2: a philo has eaten enough
-**		stop_process is set to yes so process will stop by itself, and display no more
-**		stop_game will be incremented -> main will kill all processes when every process
-**		has incremented stop philo
-
-**		Note: once it has eaten enough, the philo is out of the game. no more status from that
-**		philo will appear. This is a possible interpretation from the subject, resulting in a
-**		different implementation than in philo_one and philo_two (philo was kept in the game 
-**		until all philos have eaten)
+**		stop_process is set to yes so process will stop by itself,
+**		and display no more
+**		stop_game will be incremented -> main will kill all processes
+**		when every process has incremented stop philo
+**
+**		Note: once it has eaten enough, the philo is out of the game.
+**		no more status from that philo will appear.
+**		This is a possible interpretation from the subject, resulting
+**		in a different implementation than in philo_one and philo_two
+**		(philo was kept in the game until all philos have eaten)
 */
 
 void	ft_print_status(int status, t_options *options)
