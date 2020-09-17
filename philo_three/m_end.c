@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 15:50:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:35:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ int		destroy_sem(t_input *input, int num)
 		// ft_putendl_fd(ft_itoa(errno), 2);
 		return (EXIT_FAILURE);
 	}
-	if (input->eat_total)
+	if (input->stop_game)
 	{
-		if (sem_close(input->display))
+		if (sem_close(input->stop_game))
 		{
 			ft_putendl_fd("sem_close failed", 2);
 			return (EXIT_FAILURE);
 		}
-		if (sem_unlink("display"))
+		if (sem_unlink("stop game"))
 		{
 			// ft_putstr_fd("sem_unlink display failed with code:", 2);
 			// ft_putendl_fd(ft_itoa(errno), 2);
@@ -88,22 +88,4 @@ void	free_stuff(t_options **options, t_input *input, int num)
 	}
 	free(input->prio);
 	free(input);
-}
-
-int		join_threads(int num, pthread_t *threads)
-{
-	int i;
-
-	i = 0;
-	while (i < num)
-	{
-		if (pthread_join(threads[i], NULL))
-		{
-			ft_putendl_fd("pthread_join failed", 2);
-			return (EXIT_FAILURE);
-		}
-		i++;
-	}
-	free(threads);
-	return (EXIT_SUCCESS);
 }

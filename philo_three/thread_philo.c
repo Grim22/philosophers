@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 15:21:59 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:12:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_eat(t_options *options)
 {
 	lock_forks(options);
 	ft_print_status(EAT, options);
-	ft_wait(options->t_to_eat, options->stop_process);
+	ft_wait(options->t_to_eat);
 	unlock_forks(options);
 }
 
@@ -34,7 +34,7 @@ void	*cycle(void *void_options)
 	{
 		ft_eat(options);
 		ft_print_status(SLEEP, options);
-		ft_wait(options->t_to_sleep, options->stop_process);
+		ft_wait(options->t_to_sleep);
 		ft_print_status(THINK, options);
 	}
 	return (NULL);

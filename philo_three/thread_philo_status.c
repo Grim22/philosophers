@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 15:32:44 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:25:16 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,31 @@ void	ft_print_status_start(t_options *options)
 	free(identifier);
 }
 
+void	sem_post_multi(t_options *options)
+{
+	int i;
+
+	i = 0;
+	while (i < options->num_philo)
+	{
+		sem_post(options->stop_game);
+		i++;
+	}
+}
+
 /*
-** Print_status is protected by lock "display", shared by all threads
-** This prevents outputs on stdout from being mixed:
-** status will be print one after the other
-** 
-** All philo-processes will be stopped upon termination of the first philo-process
-**
-** When a process is ready to terminate (stop_process = YES):
-** 	- it leaves semaphore display locked, so that no more display is made
-**	- it unlocks its own forks, to make sure that it can terminate 
-**  (else, process could be "blocked" in a sem_wait, waiting for a fork
-**  that will never be freed, as display semaphore is locked,
-**  "blocking" all other processes)
+** Case 1: philo X dies
+** 		sem_post_multi will send the signal to main that all process can be killed
+**		options->display will remain locked, so that there can be no display in the meantime
+** Case 2: a philo has eaten enough
+**		stop_process is set to yes so process will stop by itself, and display no more
+**		stop_game will be incremented -> main will kill all processes when every process
+**		has incremented stop philo
+
+**		Note: once it has eaten enough, the philo is out of the game. no more status from that
+**		philo will appear. This is a possible interpretation from the subject, resulting in a
+**		different implementation than in philo_one and philo_two (philo was kept in the game 
+**		until all philos have eaten)
 */
 
 void	ft_print_status(int status, t_options *options)
@@ -67,13 +79,17 @@ void	ft_print_status(int status, t_options *options)
 	ft_print_status_start(options);
 	ft_print_status_end(status);
 	if (status == EAT)
-		options->latest_meal = ft_get_mstime();
-	check_stop(options, status);
-	if (options->stop_process == NO)
-		sem_post(options->display);
-	else
 	{
-		sem_post(options->prio);
-		sem_post(options->prio);
+		options->eat_num++;
+		options->latest_meal = ft_get_mstime();
+		if (options->eat_max != UNSET && (options->eat_num >= options->eat_max))
+		{
+			sem_post(options->stop_game);
+			options->stop_process = YES;
+		}
 	}
+	if (status == DIE)
+		sem_post_multi(options);
+	else
+		sem_post(options->display);
 }

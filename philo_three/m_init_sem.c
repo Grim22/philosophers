@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:06:49 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 15:48:29 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:34:43 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ int		init_sem_prio(int num, t_input *input)
 	return (EXIT_SUCCESS);
 }
 
-int		init_sem_display(int num, t_input *input)
+int		init_sem_display(t_input *input)
 {
-	(void)num;
 	sem_unlink("display");
 	input->display = sem_open("display", O_CREAT | O_EXCL, S_IRWXU, 1);
 	if (input->display == SEM_FAILED)
@@ -100,19 +99,11 @@ int		init_sem_display(int num, t_input *input)
 	return (EXIT_SUCCESS);
 }
 
-int		init_sem_eat(int num, t_input *input, char *eat_max)
+int		init_sem_stop(t_input *input)
 {
-	int eat;
-	
-	if (eat_max == NULL)
-	{
-		input->eat_total = NULL;
-		return (EXIT_SUCCESS);
-	}
-	eat = ft_atoi(eat_max);
-	sem_unlink("eat_num");
-	input->eat_total = sem_open("display", O_CREAT | O_EXCL, S_IRWXU, eat * num);
-	if (input->eat_total == SEM_FAILED)
+	sem_unlink("stop game");
+	input->stop_game = sem_open("stop game", O_CREAT | O_EXCL, S_IRWXU, 0);
+	if (input->stop_game == SEM_FAILED)
 	{
 		ft_putendl_fd("sem_open failed", 2);
 		return (EXIT_FAILURE);

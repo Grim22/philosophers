@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 11:02:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 15:40:30 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:09:20 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	fill_args(t_options *options, char **argv, int identifier)
 	options->t_to_sleep = ft_atoi(argv[4]);
 	options->latest_meal = UNSET;
 	options->stop_process = NO;
+	options->eat_num = 0;
 	if (argv[5])
 		options->eat_max = ft_atoi(argv[5]);
 	else
@@ -82,7 +83,7 @@ void	init_options_sem(t_options **options, t_input *input, int num)
 	while (options[i])
 	{
 		options[i]->display = input->display;
-		options[i]->eat_total = input->eat_total;
+		options[i]->stop_game = input->stop_game;
 		options[i]->prio = input->prio[i].lock;
 		if (i == 0)
 			options[i]->prio_left = input->prio[num - 1].lock;

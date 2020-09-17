@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 15:45:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:35:35 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_options
 	int				t_to_eat;
 	int				t_to_sleep;
 	int				eat_max;
+	int				eat_num;
 	long int		latest_meal;
 	long int		timestamp_start;
 	int				stop_process;
@@ -53,7 +54,7 @@ typedef struct	s_options
 	sem_t			*prio;
 	sem_t			*prio_right;
 	sem_t			*display;
-	sem_t			*eat_total;
+	sem_t			*stop_game;
 }				t_options;
 
 /*
@@ -78,7 +79,7 @@ typedef struct	s_priority
 typedef struct	s_input
 {
 	sem_t			*display;
-	sem_t			*eat_total;
+	sem_t			*stop_game;
 	t_priority		*prio;
 	pid_t			*pid_tab;
 }				t_input;
@@ -117,17 +118,16 @@ enum	e_state
 ** ---------------------- Main prototypes ---------------------
 */
 
-int				init_input(int num_philo, t_input **input, char *eat_max);
+int				init_input(int num_philo, t_input **input);
 int				init_options(t_options ***op, char **av, t_input *in, int n);
-int				init_sem_display(int num, t_input *input);
-int				init_sem_eat(int num, t_input *input, char *eat_max);
+int				init_sem_display(t_input *input);
+int				init_sem_stop(t_input *input);
 int				init_sem_prio(int num, t_input *input);
 
 int				create_death_thread(t_options *options);
 
 int				destroy_sem(t_input *input, int num);
 void			free_stuff(t_options **options, t_input *input, int num);
-int				join_threads(int num, pthread_t *threads);
 
 /*
 ** ---------------------- Thread prototypes ---------------------
@@ -142,7 +142,7 @@ void			ft_print_status(int status, t_options *options);
 void			check_stop(t_options *options, int status);
 
 long			ft_get_mstime();
-void			ft_wait(int delay_ms, int stop_all);
+void			ft_wait(int delay_ms);
 
 /*
 ** ---------------------- Libft prototypes ---------------------
