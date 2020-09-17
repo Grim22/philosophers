@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 17:43:24 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 11:59:32 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	fill_eat_num(int *eat_num, int num)
 
 int		init_other(int num, t_input *input)
 {
-	if (!(input->eat_num = malloc(num * sizeof(int))))
-	{
-		ft_putendl_fd("malloc failed", 2);
-		return (EXIT_FAILURE);
-	}
-	fill_eat_num(input->eat_num, num);
-	input->stop_all = NO;
+	// if (!(input->eat_num = malloc(num * sizeof(int))))
+	// {
+	// 	ft_putendl_fd("malloc failed", 2);
+	// 	return (EXIT_FAILURE);
+	// }
+	// fill_eat_num(input->eat_num, num);
+	// input->stop_all = NO;
 	input->pid_tab = malloc(num * sizeof(pid_t));
 	return (EXIT_SUCCESS);
 }

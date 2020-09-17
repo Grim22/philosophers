@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 14:53:00 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 11:59:52 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	free_stuff(t_options **options, t_input *input, int num)
 		i++;
 	}
 	free(input->prio);
-	free(input->eat_num);
+	// free(input->eat_num);
 	free(input);
 }
 

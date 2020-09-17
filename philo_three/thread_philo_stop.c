@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 17:10:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/14 11:27:42 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 11:56:35 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int		check_eat(int num, int *eat_num, int max)
 
 void	check_stop(t_options *options, int status)
 {
-	int	*eat_num;
+	// int	*eat_num;
 
 	if (status == DIE)
-		*(options->stop_all) = YES;
-	if (status == EAT && options->eat_max != UNSET)
-	{
-		eat_num = options->eat_num;
-		if (check_eat(options->num_philo, eat_num, options->eat_max) == YES)
-			*(options->stop_all) = YES;
-	}
+		options->stop_process = YES;
+	// if (status == EAT && options->eat_max != UNSET)
+	// {
+	// 	eat_num = options->eat_;
+	// 	if (check_eat(options->num_philo, eat_num, options->eat_max) == YES)
+	// 		*(options->stop_all) = YES;
+	// }
 }

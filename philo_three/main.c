@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 11:32:46 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 14:48:17 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ int create_processes(t_input *input, t_options **options, int num)
 		i++;
 	}
 	ret = wait(&status);
+	printf("post wait\n");
 	i = 0;
 	while (options[i])
 	{
-		kill(input->pid_tab[i], SIGTERM);
+		kill(input->pid_tab[i], SIGKILL);
 		i++;
 	}
 	return (EXIT_SUCCESS);

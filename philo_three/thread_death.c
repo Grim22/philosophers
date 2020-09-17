@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 10:02:23 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 11:52:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*death_alarm(void *void_options)
 	t_options	*options;
 
 	options = (t_options*)void_options;
-	while (*(options->stop_all) == NO)
+	while (1)
 	{
 		if (check_death(options) == YES)
 			return (NULL);

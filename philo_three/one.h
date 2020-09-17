@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 11:33:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 11:59:09 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ typedef struct	s_options
 	int				eat_max;
 	long int		latest_meal;
 	long int		timestamp_start;
-	int				*eat_num;
-	int				*stop_all;
+	int				stop_process;
 	// sem_t			*sem;
 	sem_t			*prio_left;
 	sem_t			*prio;
@@ -82,8 +81,8 @@ typedef struct	s_input
 	// sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
 	sem_t			*display;
 	t_priority		*prio;
-	int				*eat_num;
-	int				stop_all;
+	// int				*eat_num;
+	// int				stop_all;
 	pid_t			*pid_tab;
 }				t_input;
 
@@ -145,7 +144,7 @@ void			ft_print_status(int status, t_options *options);
 void			check_stop(t_options *options, int status);
 
 long			ft_get_mstime();
-void			ft_wait(int delay_ms, int *stop_all);
+void			ft_wait(int delay_ms, int stop_all);
 
 /*
 ** ---------------------- Libft prototypes ---------------------
