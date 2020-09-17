@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 11:59:09 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 15:45:38 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ typedef struct	s_options
 	long int		latest_meal;
 	long int		timestamp_start;
 	int				stop_process;
-	// sem_t			*sem;
 	sem_t			*prio_left;
 	sem_t			*prio;
 	sem_t			*prio_right;
 	sem_t			*display;
+	sem_t			*eat_total;
 }				t_options;
 
 /*
@@ -77,12 +77,9 @@ typedef struct	s_priority
 
 typedef struct	s_input
 {
-	// pthread_t		*threads_philo;
-	// sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
 	sem_t			*display;
+	sem_t			*eat_total;
 	t_priority		*prio;
-	// int				*eat_num;
-	// int				stop_all;
 	pid_t			*pid_tab;
 }				t_input;
 
@@ -120,9 +117,10 @@ enum	e_state
 ** ---------------------- Main prototypes ---------------------
 */
 
-int				init_input(int num_philo, t_input **input);
+int				init_input(int num_philo, t_input **input, char *eat_max);
 int				init_options(t_options ***op, char **av, t_input *in, int n);
 int				init_sem_display(int num, t_input *input);
+int				init_sem_eat(int num, t_input *input, char *eat_max);
 int				init_sem_prio(int num, t_input *input);
 
 int				create_death_thread(t_options *options);

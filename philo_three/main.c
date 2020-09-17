@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 14:48:17 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 15:51:06 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int create_processes(t_input *input, t_options **options, int num)
 		i++;
 	}
 	ret = wait(&status);
-	printf("post wait\n");
 	i = 0;
 	while (options[i])
 	{
@@ -89,7 +88,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (check_num_philo(&num_philo, argv[1]) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (init_input(num_philo, &input) == EXIT_FAILURE)
+	if (init_input(num_philo, &input, argv[5]) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (init_options(&options, argv, input, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
