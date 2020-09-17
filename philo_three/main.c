@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:29:36 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 18:27:54 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:47:01 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,36 +50,6 @@ int	check_num_philo(int *num, char *argv1)
 	return (EXIT_SUCCESS);
 }
 
-int create_processes(t_input *input, t_options **options, int num)
-{
-	int i;
-	
-	i = 0;
-	while (options[i])
-	{
-		input->pid_tab[i] = fork();
-		if (input->pid_tab[i] == 0)
-		{
-			cycle(options[i]);
-			return (0);
-		}
-		i++;
-	}
-	i = 0;
-	while (i < num)
-	{
-		sem_wait(input->stop_game);
-		i++;
-	}
-	i = 0;
-	while (options[i])
-	{
-		kill(input->pid_tab[i], SIGKILL);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	main(int argc, char **argv)
 {
 	t_options		**options;
@@ -94,7 +64,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (init_options(&options, argv, input, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (create_processes(input, options, num_philo) == EXIT_FAILURE)
+	if (play_game(input, options, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (destroy_sem(input, num_philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

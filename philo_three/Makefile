@@ -52,10 +52,11 @@ SRCS += m_options.c
 SRCS += m_end.c
 SRCS += m_utils.c
 
-SRCS += thread_philo.c
-SRCS += thread_philo_forks.c
-SRCS += thread_philo_status.c
-SRCS += thread_death.c
+SRCS += game.c
+SRCS += game_philo.c
+SRCS += game_philo_forks.c
+SRCS += game_philo_status.c
+SRCS += game_philo_death.c
 
 #libft functions
 SRCS += ft_strlen.c

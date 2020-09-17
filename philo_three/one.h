@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 18:35:35 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 18:46:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int				init_sem_display(t_input *input);
 int				init_sem_stop(t_input *input);
 int				init_sem_prio(int num, t_input *input);
 
+int				play_game(t_input *input, t_options **options, int num);
 int				create_death_thread(t_options *options);
 
 int				destroy_sem(t_input *input, int num);
