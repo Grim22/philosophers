@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:41:15 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 11:33:14 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 # include <pthread.h>
 # include <errno.h>
 # include <sys/time.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <semaphore.h>
+# include <signal.h>
 # include <unistd.h> // usleep, write
 # include <stdlib.h> //malloc
 # include <string.h> // memset
@@ -75,12 +78,13 @@ typedef struct	s_priority
 
 typedef struct	s_input
 {
-	pthread_t		*threads_philo;
+	// pthread_t		*threads_philo;
 	// sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
 	sem_t			*display;
 	t_priority		*prio;
 	int				*eat_num;
 	int				stop_all;
+	pid_t			*pid_tab;
 }				t_input;
 
 enum	e_state
@@ -122,8 +126,7 @@ int				init_options(t_options ***op, char **av, t_input *in, int n);
 int				init_sem_display(int num, t_input *input);
 int				init_sem_prio(int num, t_input *input);
 
-int				create_threads(t_input *in, t_options **op, int num);
-int				create_death_thread(t_options **options);
+int				create_death_thread(t_options *options);
 
 int				destroy_sem(t_input *input, int num);
 void			free_stuff(t_options **options, t_input *input, int num);

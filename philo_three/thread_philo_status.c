@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:34:02 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 11:41:09 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,15 @@ void	ft_print_status_start(t_options *options)
 ** Which means that threads will enter print_status one by one
 ** ->This prevents outputs on stdout from being mixed:
 **		status will be print one after the other
-** ->This also prevents that any status is displayed after the game has ended:
-** 		When the game ends, stop_all is set to yes
-**			(after the last status (philoX dies / has eaten) has been displayed)
-** 		As stop_all is set inside print_status (check_stop function),
-**			it is protected by lock
-** 		A check on stop_all is performed at the begining of print_status.
-**			If stop_all = yes, print_status returns (no status is displayed)
+** All philo-processes will be stopped upon exit of the first philo-process
+** When it exits, the first philo_process will leave semaphore display locked,
+** so that no more display is made
 */
 
 void	ft_print_status(int status, t_options *options)
 {
+	if (*(options->stop_all) == YES)
+		return ;
 	sem_wait(options->display);
 	if (*(options->stop_all) == YES)
 	{
@@ -74,5 +72,6 @@ void	ft_print_status(int status, t_options *options)
 		options->latest_meal = ft_get_mstime();
 	}
 	check_stop(options, status);
-	sem_post(options->display);
+	if (*(options->stop_all) == NO)
+		sem_post(options->display);
 }

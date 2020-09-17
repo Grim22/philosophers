@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 12:10:02 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/15 17:07:37 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 10:02:23 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,19 @@ int		check_death(t_options *options)
 
 void	*death_alarm(void *void_options)
 {
-	int			i;
-	t_options	**options;
+	t_options	*options;
 
-	options = (t_options**)void_options;
-	while (*(options[0]->stop_all) == NO)
+	options = (t_options*)void_options;
+	while (*(options->stop_all) == NO)
 	{
-		i = 0;
-		while (options[i])
-		{
-			if (check_death(options[i]) == YES)
-				return (NULL);
-			i++;
-		}
+		if (check_death(options) == YES)
+			return (NULL);
 		usleep(T_CHECK_DEATH);
 	}
 	return (NULL);
 }
 
-int		create_death_thread(t_options **options)
+int		create_death_thread(t_options *options)
 {
 	pthread_t death_thread;
 

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/01 15:34:38 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 09:31:04 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/16 17:43:24 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		init_other(int num, t_input *input)
 	}
 	fill_eat_num(input->eat_num, num);
 	input->stop_all = NO;
+	input->pid_tab = malloc(num * sizeof(pid_t));
 	return (EXIT_SUCCESS);
 }
 

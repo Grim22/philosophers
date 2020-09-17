@@ -1,5 +1,5 @@
 
-NAME	= philo_two
+NAME	= philo_three
 
 # ---------------- CC ---------------- #
 
@@ -48,7 +48,6 @@ endif
 SRCS += main.c
 SRCS += m_init.c
 SRCS += m_init_sem.c
-SRCS += m_init_threads.c
 SRCS += m_options.c
 SRCS += m_end.c
 SRCS += m_utils.c
