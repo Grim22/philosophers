@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/17 18:46:51 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/17 19:12:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # include <sys/wait.h>
 # include <semaphore.h>
 # include <signal.h>
-# include <unistd.h> // usleep, write
-# include <stdlib.h> //malloc
-# include <string.h> // memset
-# include "stdio.h" // printf
-# include <fcntl.h> // for sem_open flags
-# include <sys/stat.h> // for sem_open modes
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include "stdio.h"
+# include <fcntl.h>
+# include <sys/stat.h>
 
 /*
 ** Options is the argument given to every philosopher thread
