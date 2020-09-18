@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 17:33:22 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/10 11:51:04 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 09:23:56 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ int		odd_ready(t_options **options, int num)
 		return (NO);
 }
 
+/*
+** on attend jusqu'à ce que tous les philo impairs soient servis
+** ou tous sauf un dans le cas d'un nombre de philo impair)
+*/
+
 int		create_threads(t_input *in, t_options **options, int num_philo)
 {
 	in->threads_philo = malloc(num_philo * sizeof(pthread_t));
@@ -58,7 +63,7 @@ int		create_threads(t_input *in, t_options **options, int num_philo)
 		return (EXIT_FAILURE);
 	while (1)
 	{
-		if (odd_ready(options, num_philo) == YES) // attend jusqu'à ce que tous les philo impairs soient servis (ou tous sauf un dans le cas d'un nombre de philo impair)
+		if (odd_ready(options, num_philo) == YES)
 			break ;
 		usleep(10);
 	}

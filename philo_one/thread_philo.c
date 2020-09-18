@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:19:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:16:26 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 09:24:43 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ int		check_priority(t_options *options)
 		return (NO);
 }
 
+/*
+** avant d'autoriser le philosophe a manger, on s'assure qu'il ne
+** grille pas la priorité à ses voisins: avant de se resservir,
+** il faut que ses deux voisins aient mangé !
+*/
+
 void	ft_eat(t_options *options)
 {
-	while (*(options->stop_all) == NO) // avant d'autoriser le philosophe a manger, on s'assure qu'il ne grille pas la priorité à ses voisins: avant de se resservir, il faut que ses deux voisins aient mangé !
+	while (*(options->stop_all) == NO)
 	{
 		if (check_priority(options) == YES)
 			break ;

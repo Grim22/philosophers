@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:13:59 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 09:21:10 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # include <pthread.h>
 # include <sys/time.h>
-# include <unistd.h> // usleep, write
-# include <stdlib.h> //malloc
-# include <string.h> // memset
-# include "stdio.h" // printf
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include "stdio.h"
 
 typedef struct	s_options
 {
@@ -28,16 +28,15 @@ typedef struct	s_options
 	int				t_to_eat;
 	int				t_to_sleep;
 	int				eat_max;
-	long int		latest_meal; //  timestamp du dernier repas
-	long int		timestamp_start; // timestamp debut simulation
-	int				*eat_num; // tableau qui contient le nombre de repas pris par chaque philo
-	int				count_right; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N-1.
-	int				count_left; // après chaque repas du philosophe N, compte combien de repas a pris le philosophe N+1.
-	// permet de s'assurer que N-1 et N+1 aient bien pris un repas avant que ne N se resserve
-	int				*stop_all; // signal pour les threads qu'il faut exit (un int partagé par l'ensemble des threads)
-	pthread_mutex_t	*fork_l; // fourchette gauche: pointeur sur une des fourchettes
-	pthread_mutex_t	*fork_r; // fourchette à droite: pointeur sur une des fourchettes
-	pthread_mutex_t	*display; // pointeur sur le mutex qui gère l'affichage à l'écran
+	long int		latest_meal;
+	long int		timestamp_start;
+	int				*eat_num;
+	int				count_right;
+	int				count_left;
+	int				*stop_all;
+	pthread_mutex_t	*fork_l;
+	pthread_mutex_t	*fork_r;
+	pthread_mutex_t	*display;
 }				t_options;
 
 typedef struct	s_input
@@ -65,7 +64,7 @@ enum	e_state
 # define EVEN 1
 # define T_SLEEP 500
 # define T_CHECK_DEATH 2000
-# define T_CHECK_PRIO 200 // ne semble pas avoir bcp d'impact sur la charge du cpu
+# define T_CHECK_PRIO 200
 
 /*
 ** ---------------------- Main prototypes ---------------------
