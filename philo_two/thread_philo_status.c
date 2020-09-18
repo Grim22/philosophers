@@ -6,42 +6,40 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:34:02 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 10:44:41 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "one.h"
 
-void	ft_print_status_end(int status)
+void	prepare_message_end(char **message, int status)
 {
 	if (status == EAT)
-		ft_putendl_fd(" is eating", 1);
+		ft_strjoin_back(" is eating", message);
 	if (status == SLEEP)
-		ft_putendl_fd(" is sleeping", 1);
+		ft_strjoin_back(" is sleeping", message);
 	if (status == THINK)
-		ft_putendl_fd(" is thinking", 1);
+		ft_strjoin_back(" is thinking", message);
 	if (status == FORK)
-		ft_putendl_fd(" has taken a fork", 1);
+		ft_strjoin_back(" has taken a fork", message);
 	if (status == DIE)
-		ft_putendl_fd(" died", 1);
+		ft_strjoin_back(" died", message);
 }
 
-void	ft_print_status_start(t_options *options)
+void	prepare_message(char **message, t_options *options, int status)
 {
-	char	*timestamp;
 	long	elapsed;
 	long	current_time;
 	char	*identifier;
 
 	current_time = ft_get_mstime();
 	elapsed = current_time - options->timestamp_start;
-	timestamp = ft_itoa(elapsed);
-	ft_putstr_fd(timestamp, 1);
-	free(timestamp);
-	ft_putstr_fd(" ", 1);
+	*message = ft_itoa(elapsed);
+	ft_strjoin_back(" ", message);
 	identifier = ft_itoa((long)options->identifier);
-	ft_putstr_fd(identifier, 1);
+	ft_strjoin_back(identifier, message);
 	free(identifier);
+	prepare_message_end(message, status);
 }
 
 /*
@@ -60,14 +58,17 @@ void	ft_print_status_start(t_options *options)
 
 void	ft_print_status(int status, t_options *options)
 {
+	char *message;
+	
+	prepare_message(&message, options, status);
 	sem_wait(options->display);
 	if (*(options->stop_all) == YES)
 	{
 		sem_post(options->display);
+		free(message);
 		return ;
 	}
-	ft_print_status_start(options);
-	ft_print_status_end(status);
+	ft_putendl_fd(message, 1);
 	if (status == EAT)
 	{
 		options->eat_num[options->identifier - 1]++;
@@ -75,4 +76,5 @@ void	ft_print_status(int status, t_options *options)
 	}
 	check_stop(options, status);
 	sem_post(options->display);
+	free(message);
 }

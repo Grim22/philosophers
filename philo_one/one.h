@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/18 09:21:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 10:14:44 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void			ft_putendl_fd(char *s, int fd);
 void			ft_putstr_fd(char *s, int fd);
 char			*ft_itoa(long int nlong);
 int				ft_isdigit_str(char *str);
+void			ft_strjoin_back(char *back, char **src);
 
 #endif
