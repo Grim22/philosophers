@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 15:14:39 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/16 12:41:15 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 09:19:01 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <errno.h>
 # include <sys/time.h>
 # include <semaphore.h>
-# include <unistd.h> // usleep, write
-# include <stdlib.h> //malloc
-# include <string.h> // memset
-# include "stdio.h" // printf
-# include <fcntl.h> // for sem_open flags
-# include <sys/stat.h> // for sem_open modes
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include "stdio.h"
+# include <fcntl.h>
+# include <sys/stat.h>
 
 /*
 ** Options is the argument given to every philosopher thread
@@ -47,7 +47,6 @@ typedef struct	s_options
 	long int		timestamp_start;
 	int				*eat_num;
 	int				*stop_all;
-	// sem_t			*sem;
 	sem_t			*prio_left;
 	sem_t			*prio;
 	sem_t			*prio_right;
@@ -76,7 +75,6 @@ typedef struct	s_priority
 typedef struct	s_input
 {
 	pthread_t		*threads_philo;
-	// sem_t			*sem; // semaphore qui représente le nombre de fourchettes dispo
 	sem_t			*display;
 	t_priority		*prio;
 	int				*eat_num;
