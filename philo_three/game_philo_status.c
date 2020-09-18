@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/18 10:44:52 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 10:50:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	sem_post_multi(t_options *options)
 void	ft_print_status(int status, t_options *options)
 {
 	char *message;
-	
+
 	if (options->stop_process == YES)
 		return ;
 	prepare_message(&message, options, status);

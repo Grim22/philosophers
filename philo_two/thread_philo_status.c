@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 11:47:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/09/18 10:44:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/09/18 10:49:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	prepare_message(char **message, t_options *options, int status)
 void	ft_print_status(int status, t_options *options)
 {
 	char *message;
-	
+
 	prepare_message(&message, options, status);
 	sem_wait(options->display);
 	if (*(options->stop_all) == YES)
